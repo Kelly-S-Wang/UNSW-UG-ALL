@@ -1,0 +1,120 @@
+{% extends 'base_hf.html' %}
+{% load static %}}
+{% block content %}
+
+	<div id="1" class="parallax-container section scrollspy" style="height: inherit; min-height: 400px; max-height: 900px;">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 40px;"> Easily log your transactions! </h1>
+        	<div class = "white-text center-align" style="font-size: 20px;  ">
+        		Logging your transactions couldn't be easier! With our app, you can easily add in a transaction
+                whenever, and also set recurring transactions, which automatically add in transactions at set
+                intervals. Of course, what good is logging transactions when you can't analyse them properly?
+                Don't worry though! Easily look through your transaction history in great detail, and easily
+                sort and categorise them too!
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/coin2.jpg' %}"></div>
+    </div>
+
+    <div id="2" class="parallax-container section scrollspy" style="height: inherit; min-height: 400px; max-height: 900px;">
+        <div class = "container center-align" style="min-height: 400px;">
+        	<h1 class="center-align white-text" style="padding-top: 40px;"> Set your budget! </h1>
+    		<div class = "white-text" style="font-size: 20px">
+                Set your limits! Don't want to spend too much on entertainment this month? Set your limits, and
+                easily see your progress in our app. Freely check up on how well you have been doing compared to the previous 
+                months too!
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/landing1.png' %}"></div>
+    </div>
+
+    <div id="3" class="parallax-container section scrollspy" style="height: inherit; min-height: 400px; max-height: 900px;">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 40px;"> Analytics? Yes please! </h1>
+        	<div class = "white-text" style="font-size: 20px;">
+        	   Currently a work in progress. Nonetheless, our app lets you easily see spending analytics for the month, as well
+               as previous month comparisons for your needs. Expect much more in the future!
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/invest1.jpg' %}"></div>
+    </div>
+
+    <div id="4" class="parallax-container section scrollspy" style="height: inherit; min-height: 400px; max-height: 900px;">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 40px;"> Optical Character Recognition </h1>
+    		<div class = "white-text" style="font-size: 20px;">
+        		Easily upload your receipts, and our app will quickly process the receipt and log the transaction for you! Currently a work in progress,
+                expect to see it in the near future though!
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/landing1.png' %}"></div>
+    </div>
+<!--
+    <div id="5" class="parallax-container section scrollspy" style="height: 400px;">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 40px;"> Insurance </h1>
+        	<div class = "white-text" style="font-size: 20px; padding-right: 30px;">
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/insurance2.png' %}"></div>
+    </div>
+
+    <div id="6" class="parallax-container section scrollspy" style="height: 400px;">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 40px;"> Superannuation </h1>
+    		<div class = "white-text" style="font-size: 20px; padding-right: 30px;">
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        		Wowee this feature is so cool.Wowee this feature is so cool.
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/landing_1.png' %}"></div>
+    </div> -->
+
+    <div style="background-color: #ffffff;">
+    	<div class="container center-align" style="font-size: 30px; padding-top: 10px; padding-bottom: 50px; background-color: #ffffff">
+            <div class="dark-green-text text-accent-3 light" style="padding-top: 30px;">What are you waiting for?</div>
+            <div class="center-align" style="font-size: 20px; padding-top: 15px; padding-bottom: 15px;"> 
+    		</div>
+    		{% if user.is_authenticated %}
+                <a href="/overview" class="waves-effect waves-light btn-large" style="background-color: #38ef7d; margin-top: 10px; font-size: 20px; font-weight: 900; border-radius: 40px;"> Go to overview </a>
+            {% else %}
+                <a href="/register" class="waves-effect waves-light btn-large" style="background-color: #38ef7d; margin-top: 10px; font-size: 20px; font-weight: 900; border-radius: 40px;"> Get Started</a>
+            {% endif %}
+    	</div>
+	</div>
+
+    <div class = "hide-on-med-and-down z-depth-5" style="position: fixed; top: 12%; background-color: #FFFFFF; right: 3%; padding: 20px;">
+		<div class="l2">
+			<div style="font-size: 20px;"> Features </div>
+      		<ul class="section table-of-contents" style="padding-top: 0;">
+        		<li><a href="#1">Logging</a></li>
+        		<li><a href="#2">Budgetting</a></li>
+        		<li><a href="#3">Analytics</a></li>
+         		<li><a href="#4">OCR</a></li>
+ <!--       		<li><a href="#5">Insurance</a></li>
+        		<li><a href="#6">Superannuation</a></li> -->
+     		</ul>
+    	</div>
+	</div>
+
+    <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+{% endblock %}

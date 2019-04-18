@@ -1,0 +1,131 @@
+{% extends 'base_hf.html' %}
+{% load static %}}
+{% block content %}
+
+<div class="row container center-align" style="padding-top: 50px;">
+	<div class="col s12">
+		Please only repopulate users once you delete users...
+	<form action="#" method="get">
+	<div class="col s6">
+		<input type="submit" name="del" class="waves-effect waves-light btn-large" style="font-size: 20px; background-color: #11998e; font-weight: 900">Delete all users</input>
+	</div>
+	<div class="col s6">
+		<input type="submit" name="repop" class="waves-effect waves-light btn-large" style="font-size: 20px; background-color: #11998e; font-weight: 900">Repopulate Users</input>
+	</div>
+	</form>
+	</div>
+</div>
+{% for i in names %}
+	{{ i }} &nbsp; &nbsp; &nbsp;
+{% endfor %}
+<div id="1" class="parallax-container section scrollspy" style="height: 400px; ">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 50px;"> Charts </h1>
+        	<div class = "white-text">
+        		Uses ChartJS, refer to their site to see how to implement these charts.
+        		Also look into static/javascript/mycharts.js to see some samples I 
+        		tinekred with.
+        		<br>
+        		Be sure to look at this html page to see how you can make it responsive
+        		using rows and columns
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/landing_1.png' %}"></div>
+    </div>
+
+<div class="container">
+
+	<canvas id="myChart" width="400" height="400"></canvas>
+	<div class="row">
+		<div class="col s12 m6 l3">
+			<canvas id="myPie" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l3">
+			<canvas id="myPie2" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l3">
+			<canvas id="myLine" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l3">
+			<canvas id="myPolar" width="100px" height="100px"></canvas>
+		</div>
+	</div>
+	<input type="hidden" id="myVar1" name="variable" value="{{ a }}">
+	<input type="hidden" id="myVar2" name="variable" value="{{ b }}">
+	<input type="hidden" id="myVar3" name="variable" value="{{ c }}">
+	<input type="hidden" id="myVar4" name="variable" value="{{ d }}">
+	<div class="row">
+		<div class="col s12 m6 l3">
+			<canvas id="my1" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l3">
+			<canvas id="my2" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l3">
+			<canvas id="my3" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l3">
+			<canvas id="my4" width="100px" height="100px"></canvas>
+		</div>
+	</div>
+</div>
+
+<div id="1" class="parallax-container section scrollspy" style="height: 400px; ">
+        <div class = "container center-align">
+        	<h1 class="center-align white-text" style="padding-top: 50px;"> Odometer </h1>
+        	<div class = "white-text">
+        		Should be used to display numbers I think. Probably best to not overuse this, as
+        		it can cause serious lag.
+        	</div>
+        </div>
+        <div class="parallax"><img src="{% static 'images/landing_1.png' %}"></div>
+    </div>
+
+<div class="container">
+	<div class="center-align">
+		<div id="odometer" class="odometer" style="font-size: 200px;">0</div>
+	</div>
+	<input type="hidden" id="myVar5" name="variable" value="5555">
+	<input type="hidden" id="myVar6" name="variable" value="900000">
+	<div class="row">
+		<div id="odometer1" class="odometer col s4 center-align" style="font-size: 50px;">0</div>
+		<div id="odometer2" class="odometer col s4 center-align" style="font-size: 50px;">0</div>
+		<div id="odometer3" class="odometer col s4 center-align" style="font-size: 50px;">0</div>
+	</div>
+</div>
+
+<div class="container">
+	<h5 class="center-align"> TEST CHARTS WITH BETTER VARIABLES </h5>
+	<div class="row">
+		<div class="col s12 m6 l4">
+			<canvas id="my5" width="100px" height="100px"></canvas>
+		</div>
+		<div class="col s12 m6 l4">
+			<canvas id="my6" width="100px" height="100px"></canvas>
+		</div>
+	</div>
+</div>
+	
+	<!-- Django variables -->
+	<script>
+		//Method 1, have variables here.
+		var _label1 = "{{ label1 }}";
+		var _label2 = "{{ label2 }}";
+		var _spend = document.getElementById("my6").getContext('2d');
+		{{ spend|safe}}
+	</script>
+	<!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+      <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+	<script src="{% static 'javascript/mycharts.js' %}"></script>
+	<script src="{% static 'javascript/odometer.min.js' %}"></script>
+	<script src="{% static 'javascript/myodometer.js' %}"> </script>
+
+{% endblock %}

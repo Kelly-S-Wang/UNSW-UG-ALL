@@ -1,0 +1,218 @@
+{% extends 'base_db.html' %}
+{% load static %}}
+{% block content %}
+
+  <div id="main" class="container" style="padding-left: 5px;">
+    <div class="card">
+
+      <div class="card-content teal accent-2">
+        <div class="row">
+          <div class="col s12 left-align">
+            <span class="card-title white-text" style="font-size: 40px; font-weight: bold; padding-top: 20px;"><i class="material-icons white-text" style="font-size: 100px;">local_atm</i>Budget</span>
+          </div>
+
+        </div>
+      </div>
+      <form method="POST" action="/budget/">
+        {% csrf_token %}      
+        <div class="card-content">
+
+          {% for i in limits %}
+              <div class="card z-depth-3">
+                <div class="card-content" >
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="col s6 grey-text text-darken-2" style="font-size: 40px; font-weight: 700;">{{i.type}} </div>
+                        <div class="col m4 l1 offset-l4 right-align" style="vertical-align: middle;">
+                            <input disabled type="text" id="money" 
+                            {% if i.type == "Entertainment" %}
+                                value = "{{sum_expense.Entertainment}}"
+                            {% elif i.type == "Clothing" %}
+                                value = "{{sum_expense.Clothing}}"
+                            {% elif i.type == "Electronics" %}
+                                value = "{{sum_expense.Electronics}}"
+                            {% elif i.type == "Food" %}
+                                value = "{{sum_expense.Food}}"
+                            {% elif i.type == "Travel" %}
+                                value = "{{sum_expense.Travel}}"
+                            {% elif i.type == "Automobile" %}
+                                value = "{{sum_expense.Automobile}}"
+                            {% elif i.type == "Pets" %}
+                                value = "{{sum_expense.Pets}}"
+                            {% elif i.type == "Debt" %}
+                                value = "{{sum_expense.Debt}}"
+                            {% elif i.type == "Bills" %}
+                                value = "{{sum_expense.Bills}}"
+                            {% else %}
+                                value = "{{sum_expense.Other}}"
+                            {% endif %}
+                             class="validate right-align dark-green-text text-accent-3 " style="font-size: 16px;">
+                            <label for="money" style="padding-left: 10%;">Current</label>
+                        </div>
+                        <div class="col  m4 l1 right-align">
+                            <input type="text" id="max" name="{{i.type}}" step="0.01" value="{{i.amount}}" min="0" class="validate right-align dark-green-text text-accent-3 " style="font-size: 16px;">
+                            <label for="max" style="padding-left: 10%;">Limit</label>
+                        </div>
+                    
+                    </div>
+                </div>
+              </div>
+          {% endfor %}
+          <div class="row">
+            <button class="waves-effect waves-light btn-large offset-s9" type="submit" formmethod="post" style=" width:100%; border-radius: 5px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; float: right"> Save changes </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+    <script src="{% static 'javascript/odometer.min.js' %}"></script>
+    <script>
+      {{odometer|safe}}
+    </script>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+<style>
+    #main {
+
+        margin-left: 450px;
+    }
+
+    #txt {
+        font-size: 62px;
+    }
+
+    #daily_spend {
+        font-size: 62px;
+    }
+
+    #monthly_spend {
+        font-size: 62px;
+    }
+
+    #TODOREPLACE {
+        font-size: 62px;
+    }
+    @media only screen and (max-width: 1600px) {
+        #main {
+            margin-left: 375px;
+        }
+
+        #txt {
+            font-size: 42px;
+        }
+
+        #daily_spend {
+            font-size: 42px;
+        }
+
+        #monthly_spend {
+            font-size: 42px;
+        }
+
+        #TODOREPLACE {
+            font-size: 42px;
+        }
+    }
+
+    @media only screen and (max-width: 1400px) {
+        #main {
+            margin-left: 350px;
+        }
+
+        #txt {
+            font-size: 36px;
+        }
+
+        #daily_spend {
+            font-size: 36px;
+        }
+
+        #monthly_spend {
+            font-size: 36px;
+        }
+
+        #TODOREPLACE {
+            font-size: 36px;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        #main {
+            margin-left: 300px;
+        }
+
+        #txt {
+            font-size: 32px;
+        }
+
+        #daily_spend {
+            font-size: 32px;
+        }
+
+        #monthly_spend {
+            font-size: 32px;
+        }
+
+        #TODOREPLACE {
+            font-size: 32px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #main {
+            margin-left: 10%;
+        }
+
+        #txt {
+            font-size: 24px;
+        }
+
+        #daily_spend {
+            font-size: 24px;
+        }
+
+        #monthly_spend {
+            font-size: 24px;
+        }
+
+        #TODOREPLACE {
+            font-size: 24px;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        #main {
+            margin-left: 5%;
+        }
+
+        #txt {
+            font-size: 18px;
+        }
+
+        #daily_spend {
+            font-size: 18px;
+        }
+
+        #monthly_spend {
+            font-size: 18px;
+        }
+
+        #TODOREPLACE {
+            font-size: 18px;
+        }
+    }
+
+</style>
+
+{% endblock %}

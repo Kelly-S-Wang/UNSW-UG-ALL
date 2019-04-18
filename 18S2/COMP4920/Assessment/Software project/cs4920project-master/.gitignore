@@ -1,0 +1,18 @@
+# PyCharm files
+.idea/
+
+# Python cache/binaries
+*.pyc
+
+# Databases
+budgetapp/budget.db
+#budgetapp/db.sqlite3
+
+#Misc.
+*.bat
+.DS_Store
+budgetapp/.DS_Store
+budgetapp/.DS_Store
+
+#User folders
+budgetapp/static/users/*

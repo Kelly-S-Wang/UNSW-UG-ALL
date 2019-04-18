@@ -1,0 +1,257 @@
+{% extends 'base_db.html' %}
+{% load static %}}
+{% block content %}
+
+  <div id="main" class="container" style="padding-left: 5px;">
+    <div class="card">
+
+      <div class="card-content cyan accent-4">
+        <div class="row">
+          <div class="col s12 left-align">
+            <span class="card-title white-text" style="font-size: 40px; font-weight: bold; padding-top: 20px;"><i class="material-icons white-text" style="font-size: 100px;">attach_money</i>Expenses</span>
+          </div>
+        </div>
+      </div>
+
+<!--       <form method="POST" action="/expenses/">
+        {% csrf_token %}  -->     
+        <div class="card-content">
+          <div class="row">
+            <p>Here show the duration user set in budget page (uneditable)</p>
+            <a href="/budget" ><button class="waves-effect waves-light btn-small offset-s9" type="submit" style=" width:40%; border-radius: 5px; font-size: 20px; background-color: #64ffda; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; float: right"> Don't have buget? </button></a>
+          </div>
+
+          <table class="highlight responsive-table">
+            <thead>
+              <tr>
+                  <th style="width: 30%">Category</th>
+                  <th style="width: 20%">Budget</th>
+                  <th style="width: 20%">Expense</th>
+                  <th style="width: 20%">Outcome</th>
+              </tr>
+            </thead>
+
+            <tbody style="font-size: 18px;">
+              <tr>
+                <td>Food and Drink</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Home</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Travel</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Financial and Professional</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Education</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Gadgets and Devices</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Clothes</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Health</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Phone and Internet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Holidays</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Miscellaneous</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+
+  <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+    <script src="{% static 'javascript/odometer.min.js' %}"></script>
+    <script>
+      {{odometer|safe}}
+    </script>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+<style>
+    #main {
+
+        margin-left: 450px;
+    }
+
+    #txt {
+        font-size: 62px;
+    }
+
+    #daily_spend {
+        font-size: 62px;
+    }
+
+    #monthly_spend {
+        font-size: 62px;
+    }
+
+    #TODOREPLACE {
+        font-size: 62px;
+    }
+    @media only screen and (max-width: 1600px) {
+        #main {
+            margin-left: 375px;
+        }
+
+        #txt {
+            font-size: 42px;
+        }
+
+        #daily_spend {
+            font-size: 42px;
+        }
+
+        #monthly_spend {
+            font-size: 42px;
+        }
+
+        #TODOREPLACE {
+            font-size: 42px;
+        }
+    }
+
+    @media only screen and (max-width: 1400px) {
+        #main {
+            margin-left: 350px;
+        }
+
+        #txt {
+            font-size: 36px;
+        }
+
+        #daily_spend {
+            font-size: 36px;
+        }
+
+        #monthly_spend {
+            font-size: 36px;
+        }
+
+        #TODOREPLACE {
+            font-size: 36px;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        #main {
+            margin-left: 300px;
+        }
+
+        #txt {
+            font-size: 32px;
+        }
+
+        #daily_spend {
+            font-size: 32px;
+        }
+
+        #monthly_spend {
+            font-size: 32px;
+        }
+
+        #TODOREPLACE {
+            font-size: 32px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #main {
+            margin-left: 10%;
+        }
+
+        #txt {
+            font-size: 24px;
+        }
+
+        #daily_spend {
+            font-size: 24px;
+        }
+
+        #monthly_spend {
+            font-size: 24px;
+        }
+
+        #TODOREPLACE {
+            font-size: 24px;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        #main {
+            margin-left: 5%;
+        }
+
+        #txt {
+            font-size: 18px;
+        }
+
+        #daily_spend {
+            font-size: 18px;
+        }
+
+        #monthly_spend {
+            font-size: 18px;
+        }
+
+        #TODOREPLACE {
+            font-size: 18px;
+        }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,274 @@
+{% extends 'base_db.html' %}
+{% load static %}
+{% block content %}
+
+  <div id="main" class="container" style="padding-left: 5px;">
+
+    <div class="card">
+      <div class="card-content cyan darken-2">
+        <div class="row">
+          <div class="col s12 left-align">
+            <span class="card-title white-text" style="font-size: 40px; font-weight: bold; padding-top: 20px;"><i class="material-icons white-text" style="font-size: 100px;">monetization_on</i>Savings</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a href="#test4" style="font-size: 20px; font-weight: 700; color: #11998E"> Saving regularly </a></li>
+          <li class="tab"><a href="#test6" style="font-size: 20px; font-weight: 700; color: #11998E"> Save XX by DD/MM/YY </a></li>
+        </ul>
+      </div>
+      
+      <form method="POST" action="/savings/">
+        {% csrf_token %}
+        <div class="card-content grey lighten-4">
+          <div id="test4" class="row">
+            <div class= "col s3">
+              <label for="from" style="font-size: 16px;"> From </label>
+              <input type="text" class="datepicker left-align dark-green-text text-accent-3" style="font-size: 16px;">
+            </div>
+
+            <div class="input-field col s4" style="padding-top: 10px;">
+              <input type="number" step="0.01" placeholder="" min="0" class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;">
+              <label for="money" style="font-size: 20px;"> Money<i class="material-icons tiny tooltipped" data-position="bottom" data-tooltip="Can specific to two decimal places" style="padding-left: 5px; font-size: 20px;">help</i></label>
+            </div>
+
+            <div class="input-field col s4" style="padding-top: 10px;">
+              <input type="number" step="0.01" placeholder="" min="0" class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;">
+              <label for="interest" style="font-size: 20px;"> Interest <i class="material-icons tiny tooltipped" data-position="bottom" data-tooltip="Percentage can specific to two decimal places" style="padding-left: 5px; font-size: 20px;">help</i></label>
+            </div>
+
+            <div class="input-field col s1 grey-text" style="padding-top: 10px; font-size: 38px;">%</div>
+
+            <div class="input-field col s4" style="padding-top: 10px;">
+              <select>
+                <option value="" disabled selected> Period </option>
+                <option value="1"> Every month </option>
+                <option value="2"> Every 6 months </option>
+                <option value="3"> Every year </option>
+              </select>
+              <label style="font-size: 16px;"> Saving period </label>
+            </div>
+
+            <div class="row">
+              <form class="col s6">
+                <div class="row">
+                  <div class="input-field col s8">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                    <label for="comment_1"> Comment </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <button href="/savings" class="waves-effect waves-light btn-large offset-s9" type="submit" style=" width:40%; border-radius: 5px; font-size: 20px; background-color: #38ef7d; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;"> Reset </button>
+
+            <button class="waves-effect waves-light btn-large offset-s9" type="submit" formmethod="post" style=" width:40%; border-radius: 5px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; float: right"> Save </button>
+          </div>
+
+          <div id="test6" class="row">
+            <div class= "col s3">
+              <label for="from" style="font-size: 16px;"> From </label>
+              <input type="text" class="datepicker left-align dark-green-text text-accent-3" style="font-size: 16px;">
+            </div>
+
+            <div class= "col s3">
+              <label for="save_by" style="font-size: 16px;"> Save by </label>
+              <input type="text" class="datepicker left-align dark-green-text text-accent-3" style="font-size: 16px;">
+            </div>
+
+            <div class="input-field col s6" style="padding-top: 10px;">
+              <select>
+                <option value="" disabled selected> Period </option>
+                <option value="1"> Every month </option>
+                <option value="2"> Every 6 months </option>
+                <option value="3"> Every year </option>
+              </select>
+              <label style="font-size: 16px;"> Saving period </label>
+            </div>
+
+            <div class="input-field col s3" style="padding-top: 10px;">
+              <input type="number" step="0.01" placeholder="" min="0" class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;">
+              <label for="money" style="font-size: 20px;"> Money<i class="material-icons tiny tooltipped" data-position="bottom" data-tooltip="Can specific to two decimal places" style="padding-left: 5px; font-size: 20px;">help</i></label>
+            </div>
+
+            <div class="input-field col s3" style="padding-top: 10px;">
+              <input type="number" step="0.01" placeholder="" min="0" class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;">
+              <label for="interest" style="font-size: 20px;"> Interest <i class="material-icons tiny tooltipped" data-position="bottom" data-tooltip="Percentage can specific to two decimal places" style="padding-left: 5px; font-size: 20px;">help</i></label>
+            </div>
+
+            <div class="input-field col s1 grey-text" style="padding-top: 10px; font-size: 38px;">%</div>
+
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                    <label for="comment_2"> Comment </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <button href="/savings" class="waves-effect waves-light btn-large offset-s9" type="submit" style=" width:40%; border-radius: 5px; font-size: 20px; background-color: #38ef7d; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;"> Reset </button>
+
+            <button class="waves-effect waves-light btn-large offset-s9" type="submit" formmethod="post" style=" width:40%; border-radius: 5px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; float: right"> Save </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+	<!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+    <script src="{% static 'javascript/odometer.min.js' %}"></script>
+    <script>
+    	{{odometer|safe}}
+    </script>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+<style>
+    #main {
+
+        margin-left: 450px;
+    }
+
+    #txt {
+        font-size: 62px;
+    }
+
+    #daily_spend {
+        font-size: 62px;
+    }
+
+    #monthly_spend {
+        font-size: 62px;
+    }
+
+    #TODOREPLACE {
+        font-size: 62px;
+    }
+    @media only screen and (max-width: 1600px) {
+        #main {
+            margin-left: 375px;
+        }
+
+        #txt {
+            font-size: 42px;
+        }
+
+        #daily_spend {
+            font-size: 42px;
+        }
+
+        #monthly_spend {
+            font-size: 42px;
+        }
+
+        #TODOREPLACE {
+            font-size: 42px;
+        }
+    }
+
+    @media only screen and (max-width: 1400px) {
+        #main {
+            margin-left: 350px;
+        }
+
+        #txt {
+            font-size: 36px;
+        }
+
+        #daily_spend {
+            font-size: 36px;
+        }
+
+        #monthly_spend {
+            font-size: 36px;
+        }
+
+        #TODOREPLACE {
+            font-size: 36px;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        #main {
+            margin-left: 300px;
+        }
+
+        #txt {
+            font-size: 32px;
+        }
+
+        #daily_spend {
+            font-size: 32px;
+        }
+
+        #monthly_spend {
+            font-size: 32px;
+        }
+
+        #TODOREPLACE {
+            font-size: 32px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #main {
+            margin-left: 10%;
+        }
+
+        #txt {
+            font-size: 24px;
+        }
+
+        #daily_spend {
+            font-size: 24px;
+        }
+
+        #monthly_spend {
+            font-size: 24px;
+        }
+
+        #TODOREPLACE {
+            font-size: 24px;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        #main {
+            margin-left: 5%;
+        }
+
+        #txt {
+            font-size: 18px;
+        }
+
+        #daily_spend {
+            font-size: 18px;
+        }
+
+        #monthly_spend {
+            font-size: 18px;
+        }
+
+        #TODOREPLACE {
+            font-size: 18px;
+        }
+    }
+</style>
+
+{% endblock %}

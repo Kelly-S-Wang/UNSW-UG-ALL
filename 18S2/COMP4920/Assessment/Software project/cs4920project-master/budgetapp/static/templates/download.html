@@ -1,0 +1,29 @@
+{% extends 'base_hf.html' %}
+{% load static %}}
+{% block content %}
+
+<div class="parallax-container" style="height: 550px;">
+    <div class = "container center-align" style="margin-top: 150px;">
+      	<h3 class="center-align white-text" style="padding-top: 50px; font-weight: 800"> Get connected to our app from anywhere </h3>
+    	<h5 class="center-align white-text" style="padding-bottom: 10px"> Available on Android </h5>
+            
+        <div class="center-align">
+        	
+        	<a href="{% static 'app.apk' %}"><button class="waves-effect waves-light btn-large col s12" style="border-radius: 5px; font-size: 20px; background-color: #20BB87; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; margin-top: 10px; margin-bottom: 20px;"> DOWNLOAD NOW</button></a>
+        </div>
+    </div>
+    <div class="parallax"><img src="{% static 'images/download.jpg' %}"></div>
+</div>
+<div class="container">
+	
+</div>
+
+  <!-- JS files provided by Materialize -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'javascript/materialize.js' %}"></script>
+<script src="{% static 'javascript/init.js' %}"></script>
+<!-- For some reason above init.js doesn't load some things for me -->
+<script> M.AutoInit(); </script>
+
+<script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+{% endblock %}

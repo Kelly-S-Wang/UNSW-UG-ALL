@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Predict Me</title>
+    
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  </head>
+
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      button.button3 {
+        border: none;
+        border-radius: 2px; 
+        background-color: #26a79a;
+        width: 100px;
+        height: 40px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        color: white;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar-fixed">
+      <nav class="white" role="navigation">
+        <div class="nav-wrapper">
+
+          <a id="logo-container" href="/" class="brand-logo"><i class="material-icons" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;">multiline_chart</i>Predict Me</a>
+
+            <ul class="right hide-on-med-and-down">
+              <Form method="POST">
+	              <li>
+	                  <div class="input-field">
+	                    <input placeholder="Brunswick, Fitzroy North, Port Melbourne, Reservoir, Richmond" type="search" style="padding-top: 23px; margin-right: 380px;" name="suburb" required>
+	                    <label class="label-icon" for="search"><i class="material-icons teal-text text-lighten-1">search</i></label>
+	                    <i class="material-icons">close</i>
+	                  </div>
+	              </li>
+
+	              <li>
+	                  <div class="input-field">
+	                    <input placeholder="Housing size" type="search" style="padding-top: 23px;" name="size" required>
+	                    <label class="label-icon" for="search"><i class="material-icons teal-text text-lighten-1">add</i></label>
+	                    <i class="material-icons">close</i>
+	                  </div>
+	              </li>
+	           	<button class="button3" type="submit"><b>Predict!</b></button>
+<!-- 	            <li > <a href="/login" class=" btn-large " style="height: 38px; width: 80%; border-radius: 0px; font-size: 17px;">Login</a></li> -->
+             </Form>
+            </ul>
+        </div>
+      </nav>
+    </div>
+
+    <input style="width: 30%; border: 3px solid #fff;" id="pac-input" class="controls" type="text"
+        placeholder="search a location">
+    <div id="map"></div>
+    <div id="infowindow-content">
+      <span id="place-name"  class="title"></span><br>
+      Place ID <span id="place-id"></span><br>
+      <span id="place-address"></span>
+    </div>
+
+    <script>
+      // This sample uses the Place Autocomplete widget requesting only a place
+      // ID to allow the user to search for and locate a place. The sample
+      // then reverse geocodes the place ID and displays an info window
+      // containing the place ID and other information about the place that the
+      // user has selected.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -37.8136, lng: 144.9631},
+          zoom: 10
+        });
+
+        var input = document.getElementById('pac-input');
+
+        var autocomplete = new google.maps.places.Autocomplete(
+            input, {placeIdOnly: true});
+        autocomplete.bindTo('bounds', map);
+
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById('infowindow-content');
+        infowindow.setContent(infowindowContent);
+        var geocoder = new google.maps.Geocoder;
+        var marker = new google.maps.Marker({
+          map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+        autocomplete.addListener('place_changed', function() {
+          infowindow.close();
+          var place = autocomplete.getPlace();
+
+          if (!place.place_id) {
+            return;
+          }
+          geocoder.geocode({'placeId': place.place_id}, function(results, status) {
+
+            if (status !== 'OK') {
+              window.alert('Geocoder failed due to: ' + status);
+              return;
+            }
+            map.setZoom(11);
+            map.setCenter(results[0].geometry.location);
+            // Set the position of the marker using the place ID and location.
+            marker.setPlace({
+              placeId: place.place_id,
+              location: results[0].geometry.location
+            });
+            marker.setVisible(true);
+            infowindowContent.children['place-name'].textContent = place.name;
+            infowindowContent.children['place-id'].textContent = place.place_id;
+            infowindowContent.children['place-address'].textContent =
+                results[0].formatted_address;
+            infowindow.open(map, marker);
+          });
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFfscZFFVgSx7Ghv8eYB-xGbL2mnFSe0A&libraries=places&callback=initMap"
+        async defer></script>
+
+  </body>
+</html>

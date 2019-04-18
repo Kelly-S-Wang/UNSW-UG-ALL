@@ -1,0 +1,9 @@
+r = 100,000,  R = 200,  B = 4096
+time to read a page = 10msec
+time to check one tuple = 1 usec
+time to form one result tuple = 1 usec
+time to scan one page = 40 usec
+
+Time cost for: select * from R where x > 10;
+
+...

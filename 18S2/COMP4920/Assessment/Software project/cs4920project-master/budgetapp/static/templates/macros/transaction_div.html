@@ -1,0 +1,171 @@
+<li style="margin-bottom: 0;">
+    <div class="collapsible-header" style="display: block; padding: 0; margin-bottom: 0; border-left: 5px solid
+            {% if transaction.inc_exp == "E" %}
+                #e57373
+            {% else %}
+                #81c784
+            {% endif %};">
+        <div class="row" style="width: 100%;">
+            <div id="amnt_txt" class='
+                {% if transaction.inc_exp == "E" %}
+                    red-text text-lighten-2
+                {% else %}
+                    green-text text-lighten-2
+                {% endif %}
+                col s4 left-align' style=' padding-top: 0;'> {{ transaction.amount }} </div>
+            <div id="date" class='col s8 right-align grey-text text-darken-2' style="vertical-align: middle;">
+                {{ transaction.date_time|date:"d/m/Y" }}
+                <br>
+                <b class="grey-text text-darken-3">{{ transaction.type }}</b>
+            </div>
+        </div>
+    </div>
+    <div class="collapsible-body" style="padding: 0rem !important; margin: 0; vertical-align: top;">
+        <form action="/edittransaction/" method="POST">
+        {% csrf_token %}
+        <h4 style="padding-top: 0; padding-left: 10px;"> Detailed Information </h4>
+        <div style="padding-left: 3%; padding-right: 3%;">
+            <div class="divider"></div>
+            <div class="row">
+                <input type="hidden" name="page" value="{{ page_name }}">
+                <input type="hidden" name="transaction_id" value="{{ transaction.id }}">
+
+                <div class="col s2">
+                    <b> Type: </b>
+                </div>
+                <div class="row input-field col s9 offset-s1">
+                    <div class="col s12 m6">
+                        <label>
+                            <input disabled class="with-gap" name="money_type" type="radio" value="I"
+                            {% if transaction.inc_exp == "I" %}
+                                checked
+                            {% endif %}
+                            />
+                            <span>Income</span>
+                        </label>
+                    </div>
+                    <div class="col s12 m6">
+                        <label>
+                            <input disabled class="with-gap" name="money_type" type="radio" value="E"
+                           {% if transaction.inc_exp == "E" %}
+                                checked
+                            {% endif %}
+                            />
+                            <span>Expense</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col s2">
+                    <b>Money:</b>
+                </div>
+                <input class="col s9 offset-s1 validate right-align
+                                    {% if transaction.inc_exp == 'E' %}
+                                        red-text text-lighten-2
+                                    {% else %}
+                                        green-text text-lighten-2
+                                    {% endif %}
+                                    " style="font-size: 42px;" id="money" type="number" step="0.01" value="{{ transaction.amount }}"
+                       name="money" required>
+
+                <div class="col s2">
+                    <b>Date:</b>
+                </div>
+
+                <input class="datepicker col s9 offset-s1 validate right-align" name="date" id="amnt" placeholder="Date"
+                       type="text" min="0" class="validate" value="{{ transaction.date_time|date:"M d, Y" }}" required>
+                <div class="col s2">
+                    <b>Category:</b>
+                </div>
+{#                <input class="col s9 offset-s1 validate right-align" id="category" type="text" value="{{ transaction.type }}"#}
+{#                       name="category" required >#}
+                <div class="input-field col s9 offset-s1 validate right-align" style="padding-top: 10px;">
+                  <select name="transaction_type" required>
+                    <option value="" disabled> Choose Category </option>
+                    {% if transaction.inc_exp == "E" %}
+                        <option value="1" {% if transaction.type == "Food/Drink" %} selected {% endif %}> Food/Drink</option>
+                        <option value="2" {% if transaction.type == "Bills" %} selected {% endif %}> Bills </option>
+                        <option value="3" {% if transaction.type == "Electronics" %} selected {% endif %}> Electronics </option>
+                        <option value="4" {% if transaction.type == "Entertainment" %} selected {% endif %}> Entertainment </option>
+                        <option value="5" {% if transaction.type == "Travel" %} selected {% endif %}> Travel </option>
+                        <option value="6" {% if transaction.type == "Debt" %} selected {% endif %}> Debt </option>
+                        <option value="7" {% if transaction.type == "Clothing" %} selected {% endif %}> Clothing </option>
+                        <option value="8" {% if transaction.type == "Health" %} selected {% endif %}> Health </option>
+                        <option value="9" {% if transaction.type == "Automobile" %} selected {% endif %}> Automobile</option>
+                        <option value="10" {% if transaction.type == "Pets" %} selected {% endif %}> Pets </option>
+                        <option value="11" {% if transaction.type == "Other/Expenses" %} selected {% endif %}> Other/Expenses </option>
+                    {% else %}
+                        <option value="1" {% if transaction.type == "Salary" %} selected {% endif %}> Salary</option>
+                        <option value="2" {% if transaction.type == "Investments" %} selected {% endif %}> Investments</option>
+                        <option value="3" {% if transaction.type == "Other/Income" %} selected {% endif %}> Other/Income</option>
+                    {% endif %}
+                  </select>
+                </div>
+                <div class="col s2">
+                    <b>Comment:</b>
+                </div>
+                <div class="input-field col s9 offset-s1 right-align" style="padding: 0;">
+                    <textarea class="right-align materialize-textarea" id="comment" type="text" name="comment"
+                              required> {{ transaction.comment }} </textarea>
+                </div>
+                <div class="row">
+                <button class="waves-effect waves-light btn-large col s4 offset-s1 l9" type="submit" formmethod="post" formaction="/edittransaction/"
+                        style=" border-radius: 5px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;">
+                    Save changes
+                </button>
+                <button class="waves-effect waves-light btn-large col s4 offset-s2 l3" type="submit" formmethod="post" formaction="/deletetransaction/"
+                        style="border-radius: 5px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;">
+                    Delete
+                </button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</li>
+
+<style>
+    
+    #date {
+        font-size: 24px;
+    }
+
+    #amnt_txt {
+        font-size: 42px;
+    }
+    @media only screen and (max-width: 1600px) {
+        #date {
+            font-size: 22px;
+        }
+    }
+
+    @media only screen and (max-width: 1440px) {
+        #date {
+            font-size: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        #date {
+            font-size: 18px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #date {
+            font-size: 16px;
+        }
+        #amnt_txt {
+            font-size: 40px;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        #date {
+            font-size: 15px;
+        }
+        #amnt_txt {
+            font-size: 38px;
+        }
+    }
+
+</style>

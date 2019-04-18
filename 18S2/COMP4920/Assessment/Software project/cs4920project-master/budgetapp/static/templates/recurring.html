@@ -1,0 +1,289 @@
+{% extends 'base_db.html' %}
+{% load static %}}
+{% block content %}
+
+    <div id="main" class="container" style="padding-left: 5px;">
+        <div class="card">
+
+            <div class="card-content cyan accent-3">
+                <div class="row">
+                    <div class="col s12 left-align">
+                        <span class="card-title white-text" style="font-size: 40px; font-weight: bold; padding-top: 20px;"><i class="material-icons white-text" style="font-size: 100px;">local_atm</i>Recurring Transactions</span>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="card-content white">
+                <h3 class="grey-text text-darken-2" style="font-weight: 700;"> Transactions awaiting confirmation</h3>
+                {% for i in current_t %}
+                    <div class="card z-depth-3 col s12 m12">
+                        <div class="card-content">
+                            <form method="POST" action="/confirm_message/">
+                                {% csrf_token %}
+                                <input type="hidden" name="message_id" value="{{ i.0.id }}">
+                                <div class="row" style="margin-bottom: 0;">
+                                    {% if i.1.inc_exp == "I" %}
+                                    <div class="col s12 m3 green-text text-lighten-2" style="font-size: 40px;">
+                                        {{i.1.amount}}
+                                    </div>
+                                    {% else %}
+                                    <div class="col s12 m3 red-text text-lighten-2" style="font-size: 40px;">
+                                        {{i.1.amount}}
+                                    </div>
+                                    {% endif %}
+                                    <div class="col s12 m4" style="font-size: 20px; padding-top: 6px;">
+                                        <b>{{ i.1.type }}:</b>
+                                        <br/>
+                                        {{i.1.comment}}
+                                    </div>
+                                    <div class="col s12 m3" style="font-size: 24px; vertical-align: middle; padding-top: 11px;">
+                                        {{ i.0.date_time|date:"M d, Y" }}
+                                    </div>
+                                    <button class="waves-effect waves-light btn-large s12 cyan darken-3" type="submit" formmethod="post" style="font-size: 20px; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; float: right">Confirm </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if not transaction_list %}
+                    <h3 class="center-align grey-text text-darken-1" style="padding-bottom: 10px;"> No transactions so far </h3>
+                {% endif %}
+                <h3 class="grey-text text-darken-2" style="font-weight: 700;"> Your recurring transactions</h3>
+                <div class="row">
+                {% for i in transaction_list %}
+
+                    <div class="card z-depth-3 col s12 m12 l6">
+                        <div class="card-content">
+                            <form method="POST" action="/recurring/">
+                                {% csrf_token %}
+                                <input type="hidden" name="curr_path" value="{{page_name}}">
+                                <input type="hidden" name="r_id" value="{{i.id}}">
+                                <div id="test4" class="row" style="margin-bottom: 0px; padding: 10px;">
+                                    <div class="input-field col s12 m3" style="padding-top: 10px;">
+                                        <input type="number" name="money" step="0.01" placeholder="" min="0" class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;" value="{{i.amount}}" required>
+                                        <label for="money" style="font-size: 20px;"> Money<i class="material-icons tiny tooltipped" data-position="bottom" data-tooltip="Up to two decimal places" style="padding-left: 5px; font-size: 20px;">help</i></label>
+                                    </div>
+
+                                    <div class="input-field col s12 m3" style="padding-top: 10px;">
+                                        <select name="transaction_inc_exp" required disabled>
+                                            <option value="I" {% if i.inc_exp == "I" %} selected {% endif %}>Income</option>
+                                            <option value="E" {% if i.inc_exp == "E" %} selected {% endif %}>Expense</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-field col s12 m5 offset-m1" style="padding-top: 10px;">
+                                        <select name="transaction_type" required>
+                                        {% if i.inc_exp == "E" %}
+                                            <option value="1" {% if i.type == "Food/Drink" %} selected {% endif %}> Food/Drink</option>
+                                            <option value="2" {% if i.type == "Bills" %} selected {% endif %}> Bills </option>
+                                            <option value="3" {% if i.type == "Electronics" %} selected {% endif %}> Electronics </option>
+                                            <option value="4" {% if i.type == "Entertainment" %} selected {% endif %}> Entertainment </option>
+                                            <option value="5" {% if i.type == "Travel" %} selected {% endif %}> Travel </option>
+                                            <option value="6" {% if i.type == "Debt" %} selected {% endif %}> Debt </option>
+                                            <option value="7" {% if i.type == "Clothing" %} selected {% endif %}> Clothing </option>
+                                            <option value="8" {% if i.type == "Health" %} selected {% endif %}> Health </option>
+                                            <option value="9" {% if i.type == "Automobile" %} selected {% endif %}> Automobile</option>
+                                            <option value="10" {% if i.type == "Pets" %} selected {% endif %}> Pets </option>
+                                            <option value="11" {% if i.type == "Other/Expenses" %} selected {% endif %}> Other/Expenses </option>
+                                        {% else %}
+                                            <option value="1" {% if i.type == "Salary" %} selected {% endif %}> Salary</option>
+                                            <option value="2" {% if i.type == "Investments" %} selected {% endif %}> Investments</option>
+                                            <option value="3" {% if i.type == "Other/Income" %} selected {% endif %}> Other/Income</option>
+                                        {% endif %}
+                                      </select>
+                                     <label for="transaction_type" style="font-size: 16px;"> Category </label>
+                                    </div>
+
+
+                                    <div class= "col s12 m4">
+                                        <label for="from" style="font-size: 16px;"> From </label>
+                                        <input name="from" type="text" class="datepicker left-align dark-green-text text-accent-3" value="{{i.start_date_time|date:"M d, Y"}}" style="font-size: 16px;" required>
+                                    </div>
+
+                                    <div class= "col s12 m4">
+                                        <label for="to" style="font-size: 16px;"> To </label>
+                                        <input name="to" type="text" class="datepicker left-align dark-green-text text-accent-3" value="{{i.end_date_time|date:"M d, Y"}}" style="font-size: 16px;" required>
+                                    </div>
+
+                                    <div class="col s12 m4">
+                                        <label for="freq" style="font-size: 16px;">Frequency </label>
+                                        <select name="freq" required>
+                                            <option value="day" {% if i.recurrence_type == "day" %} selected {% endif %}>Daily</option>
+                                            <option value="week" {% if i.recurrence_type == "week" %} selected {% endif %}>Weekly</option>
+                                            <option value="month" {% if i.recurrence_type == "month" %} selected {% endif %}>Monthly</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-field col s12 m12">
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <textarea name="comment" id="icon_prefix2" placeholder="Comment" class="materialize-textarea">{{i.comment}}</textarea>
+                                    </div>
+                                    <button class="waves-effect waves-light btn-large s8 m3" type="submit" name="edit" formmethod="post" style="width:100%; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; margin-bottom: 10px;">Edit </button>
+                                    <button class="waves-effect waves-light btn-large s8 m3" type="submit" name="del" formmethod="post" formaction="/delete_recurring/" style="width:100%; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900;">Delete </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if not transaction_list %}
+                    <h3 class="center-align grey-text text-darken-1" style="padding-bottom: 10px;"> No transactions so far </h3>
+                {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+  <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+    <script src="{% static 'javascript/odometer.min.js' %}"></script>
+    <script>
+      {{odometer|safe}}
+    </script>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+<style>
+    #main {
+
+        margin-left: 450px;
+    }
+
+    #txt {
+        font-size: 62px;
+    }
+
+    #daily_spend {
+        font-size: 62px;
+    }
+
+    #monthly_spend {
+        font-size: 62px;
+    }
+
+    #TODOREPLACE {
+        font-size: 62px;
+    }
+    @media only screen and (max-width: 1600px) {
+        #main {
+            margin-left: 375px;
+        }
+
+        #txt {
+            font-size: 42px;
+        }
+
+        #daily_spend {
+            font-size: 42px;
+        }
+
+        #monthly_spend {
+            font-size: 42px;
+        }
+
+        #TODOREPLACE {
+            font-size: 42px;
+        }
+    }
+
+    @media only screen and (max-width: 1400px) {
+        #main {
+            margin-left: 350px;
+        }
+
+        #txt {
+            font-size: 36px;
+        }
+
+        #daily_spend {
+            font-size: 36px;
+        }
+
+        #monthly_spend {
+            font-size: 36px;
+        }
+
+        #TODOREPLACE {
+            font-size: 36px;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        #main {
+            margin-left: 300px;
+        }
+
+        #txt {
+            font-size: 32px;
+        }
+
+        #daily_spend {
+            font-size: 32px;
+        }
+
+        #monthly_spend {
+            font-size: 32px;
+        }
+
+        #TODOREPLACE {
+            font-size: 32px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #main {
+            margin-left: 10%;
+        }
+
+        #txt {
+            font-size: 24px;
+        }
+
+        #daily_spend {
+            font-size: 24px;
+        }
+
+        #monthly_spend {
+            font-size: 24px;
+        }
+
+        #TODOREPLACE {
+            font-size: 24px;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        #main {
+            margin-left: 5%;
+        }
+
+        #txt {
+            font-size: 18px;
+        }
+
+        #daily_spend {
+            font-size: 18px;
+        }
+
+        #monthly_spend {
+            font-size: 18px;
+        }
+
+        #TODOREPLACE {
+            font-size: 18px;
+        }
+    }
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Ipsum - Dashboard</title>
+
+    <!--Icons provided by Google in accordance to the Apache License-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--CSS created by Materialize-->
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!-- Roboto font from Google -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- CSS for odometer -->
+    <link href="{% static 'css/odometer-theme-default.css' %}" type="text/css" rel="stylesheet"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body style="font-family: 'Roboto', sans-serif !important;" class="grey lighten-3">
+<!-- JS files provided by Materialize -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'javascript/materialize.js' %}"></script>
+<script src="{% static 'javascript/init.js' %}"></script>
+<!-- For some reason above init.js doesn't load some things for me -->
+<script> M.AutoInit(); </script>
+<!-- JS files for charts from chartjs.org -->
+<script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+<script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'javascript/mycharts.js' %}"></script>
+
+<div class="navbar-fixed ">
+    <nav>
+        <div class="nav-wrapper white z-depth-3 grey-text blue-grey darken-3">
+            <a href="/" class="brand-logo right grey-text hide-on-med-and-down" style="padding-right: 10px;">
+                <ion-icon name="rose"
+                          style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;"></ion-icon>
+                Ipsum</a>
+            <a href="/" class="brand-logo grey-text show-on-med-and-down" style="padding-right: 10px;">
+                <ion-icon name="rose"
+                          style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;"></ion-icon>
+                Ipsum</a>
+            <a href="/overview" class="brand-logo grey-text left-align hide-on-med-and-down"
+               style="padding-left: 320px;">{{ page_name }}</a>
+            <i class="material-icons hide-on-med-and-down"
+               onclick="$(document).ready(function(){$('.tap-target').tapTarget('open');});"
+               style="padding-left: 470px;">help</i>
+            <a id="curr" href="/overview" class=" grey-text right right-align show-on-med-and-down"
+               style="padding-right: 10px;">{{ page_name }}</a>
+            <i class="material-icons tiny right hide-on-large-only show-on-med-and-down"
+               onclick="$(document).ready(function(){$('.tap-target').tapTarget('open');});"
+               style="padding-right: 15px; font-size: 18px;">help</i>
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+</div>
+
+<ul id="slide-out" class="sidenav sidenav-fixed blue-grey darken-4 white-text">
+    <li>
+        <div class="user-view">
+            {% with "users/"|add:full_name|add:"/profile.jpg" as profile_img %}
+
+            <img class="circle" src="{% static profile_img %}">
+            {% endwith %}
+            <span class="white-text flow-text" style="font-weight: bold; font-size: 20px;">{{ full_name }}</span>
+    <li><a class="waves-effect white-text" href="/overview" style="font-size: 16px; font-weight: bold;"><i
+            class="material-icons white-text" style="font-size: 20px;">content_paste</i> Overview </a></li>
+    </div>
+    </li>
+
+    <div class="divider"></div>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion" style="padding-left: 30px;">
+            <!--<li><a class="collapsible-header white-text" style="padding-left: 0px; font-size: 14px;" href="/transactions"><i class="material-icons white-text" style="font-size: 20px;">edit</i>Record a new transaction</a></li>-->
+            <li><a class="collapsible-header white-text" style="padding-left: 0px; font-size: 14px;" href="/history"><i
+                    class="material-icons white-text" style="font-size: 20px;">history</i>Transaction History</a>
+            </li>
+            <li><a class="collapsible-header white-text" style="padding-left: 0px; font-size: 14px;"
+                   href="/recurring"><i class="material-icons white-text" style="font-size: 20px;">watch_later</i>
+                   {% if messages > 0 %}
+                   <span class="badge white" style="border-radius: 20px;">{{messages}}</span>
+                   {% endif %}
+                    Recurring Transactions</a>
+            </li>
+            <li><a class="collapsible-header white-text" style="padding-left: 0px; font-size: 14px;" href="/budget"><i
+                    class="material-icons white-text" style="font-size: 20px;">local_atm</i>Budget</a>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion" style="padding-left: 30px;">
+            <li><a class="collapsible-header white-text" href="/settings" style="padding-left: 0px; font-size: 14px;"
+                   href="#"><i class="material-icons white-text" style="font-size: 20px;">settings</i>Settings</a></li>
+            <br>
+            <br>
+            <li><a class="collapsible-header white-text" style="padding-left: 0px; font-size: 14px;"
+                   href="{% url 'logout' %}?next=/"><i class="material-icons white-text" style="font-size: 20px;">arrow_back</i>Log
+                out</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<div class="fixed-action-btn">
+    <a id="trans" href="#add" class="btn-floating btn-large green lighten-1 z-depth-3 modal-trigger">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+
+</div>
+
+<div id="hi" class="tap-target green darken-1 white-text" data-target="trans">
+    <div class="tap-target-content">
+        <h5>Hi there!</h5>
+        <p>Click on me to easily add your transactions! You'll always find me down here.</p>
+    </div>
+</div>
+
+<div id="add" class="modal">
+    <div class="modal-content" style="padding: 0;">
+        <div id="box" class="left-align teal accent-4">
+            <span id="ico" class="card-title white-text" style="font-weight: bold; padding-top: 20px;"><i id="title"
+                                                                                                          class="material-icons white-text">edit</i>New Transaction</span>
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#test4" style="font-size: 20px; font-weight: 700; color: #11998E"> Expense </a>
+                </li>
+                <li class="tab"><a href="#test6" style="font-size: 20px; font-weight: 700; color: #11998E"> Income </a>
+                </li>
+                <!--<li class="tab"><a href="#test8" style="font-size: 20px; font-weight: 700; color: #11998E"> Receipt
+                    Upload </a></li>-->
+            </ul>
+        </div>
+        <form method="POST" action="/transactions/">
+            {% csrf_token %}
+            <input type="hidden" name="curr_path" value="{{ page_name }}">
+            <div id="test4" class="row" style="margin-bottom: 0px; padding: 10px;">
+                <div class="input-field col s6 m3" style="padding-top: 10px;">
+                    <input type="number" name="money_expense" step="0.01" placeholder="" min="0"
+                           class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;" required>
+                    <label for="money" style="font-size: 20px;"> Money<i class="material-icons tiny tooltipped"
+                                                                         data-position="bottom"
+                                                                         data-tooltip="Up to two decimal places"
+                                                                         style="padding-left: 5px; font-size: 20px;">help</i></label>
+                </div>
+                <div class="col s6 m3">
+                    <label for="date" style="font-size: 16px;"> Date </label>
+                    <input type="text" name="date_expense" class="datepicker left-align dark-green-text text-accent-3"
+                           style="font-size: 16px;" required>
+                </div>
+
+                <div class="input-field col s12 m5 offset-m1" style="padding-top: 10px;">
+                    <select name="expense_type" required>
+
+                        <option value="" disabled selected> Choose Category</option>
+                        <option value="1"> Food/Drink</option>
+                        <option value="2"> Bills</option>
+                        <option value="3"> Electronics</option>
+                        <option value="4"> Entertainment</option>
+                        <option value="5"> Travel</option>
+                        <option value="6"> Debt</option>
+                        <option value="7"> Clothing</option>
+                        <option value="8"> Health</option>
+                        <option value="9"> Automobile</option>
+                        <option value="10"> Pets</option>
+                        <option value="11"> Other/Expenses</option>
+                    </select>
+                    <label style="font-size: 16px;"> Category </label>
+                </div>
+
+                <div class="col s6 m3">
+                    <label for="from_exp" style="font-size: 16px;"> From <i class="material-icons tiny tooltipped"
+                                                                        data-position="bottom"
+                                                                        data-tooltip="How long your recurring transaction should last"
+                                                                        style="padding-left: 5px;">help</i></label>
+                    <input type="text" name="from_exp" class="datepicker left-align dark-green-text text-accent-3"
+                           style="font-size: 16px;">
+                </div>
+
+                <div class="col s6 m3">
+                    <label for="to_exp" style="font-size: 16px;"> To </label>
+                    <input type="text" name="to_exp" class="datepicker left-align dark-green-text text-accent-3"
+                           style="font-size: 16px;">
+                </div>
+
+                <div class="input-field col s12 m5 offset-m1" style="padding-top: 10px;">
+                    <select name="freq_exp">
+                        <option value="0" disabled selected> Choose options</option>
+                        <option value="1"> N/A</option>
+                        <option value="2"> Every day</option>
+                        <option value="3"> Every week</option>
+                        <option value="4"> Every month</option>
+                    </select>
+                    <label style="font-size: 16px;"> Repeat </label>
+                </div>
+                <div class="row">
+                    <form class="col s12 m12">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="icon_prefix2" name="comment_exp" placeholder="Comment"
+                                          class="materialize-textarea"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <button class="waves-effect waves-light btn-large s12" type="submit" formmethod="post"
+                        style=" width: 100%; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; float: right">
+                    Save
+                </button>
+            </div>
+        </form>
+        <form method="POST" action="/transactions/">
+            {% csrf_token %}
+            <input type="hidden" name="curr_path" value="{{ page_name }}">
+            <div id="test6" class="row" style="margin-bottom: 0px; padding: 10px;">
+                <div class="input-field col s6 m3" style="padding-top: 10px;">
+                    <input type="text" id="money" name="money_income" step="0.01" placeholder="" min="0"
+                           class="validate left-align dark-green-text text-accent-3" style="font-size: 16px;" required>
+                    <label for="money" style="font-size: 20px;"> Money<i class="material-icons tiny tooltipped"
+                                                                         data-position="bottom"
+                                                                         data-tooltip="Can specific to two decimal places"
+                                                                         style="padding-left: 5px; font-size: 20px;">help</i></label>
+                </div>
+
+                <div class="col s6 m3">
+                    <label for="date" style="font-size: 16px;"> Date </label>
+                    <input type="text" name="date_income" class="datepicker left-align dark-green-text text-accent-3"
+                           style="font-size: 16px;" required>
+                </div>
+
+                <div class="input-field col s12 m5 offset-m1" style="padding-top: 10px;">
+                    <select name="income_type" required>
+                        <option value="" disabled selected> Choose Category</option>
+                        <option value="1"> Salary</option>
+                        <option value="2"> Investments</option>
+                        <option value="3"> Other/Income</option>
+                    </select>
+                    <label style="font-size: 16px;"> Category </label>
+                </div>
+
+                <div class="col s6 m3">
+                    <label for="from_inc" style="font-size: 16px;"> From <i class="material-icons tiny tooltipped"
+                                                                        data-position="bottom"
+                                                                        data-tooltip="Duration of this income"
+                                                                        style="padding-left: 5px;">help</i></label>
+                    <input type="text" name="from_inc" class="datepicker left-align dark-green-text text-accent-3"
+                           style="font-size: 16px;">
+                </div>
+
+                <div class="col s6 m3">
+                    <label for="to_inc" style="font-size: 16px;"> To </label>
+                    <input type="text" name="to_inc" class="datepicker left-align dark-green-text text-accent-3"
+                           style="font-size: 16px;">
+                </div>
+
+                <div class="input-field col s12 m5 offset-m1" style="padding-top: 10px;">
+                    <select name="freq_inc">
+                        <option value="" disabled selected> Choose options</option>
+                        <option value=""> N/A</option>
+                        <option value="2"> Every day</option>
+                        <option value="3"> Every week</option>
+                        <option value="4"> Every month</option>
+                    </select>
+                    <label style="font-size: 16px;"> Repeat </label>
+                </div>
+
+
+                <div class="row">
+                    <form class="col s12 m12">
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="icon_prefix2" name="comment_inc" placeholder="Comment"
+                                          class="materialize-textarea"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <button class="waves-effect waves-light btn-large s12" type="submit" formmethod="post"
+                        style=" width: 100%; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; float: right">
+                    Save
+                </button>
+
+            </div>
+        </form>
+        <!--<form method="POST" action="/receiptupload/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="curr_path" value="{{ page_name }}">
+            <div id="test8" class="row" style="margin-bottom: 0px; padding: 10px;">
+                <form action="#">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>File</span>
+                            <input type="file" name="profile_img">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </form>
+                <button class="waves-effect waves-light btn-large s12" type="submit" formmethod="post"
+                        style=" width: 100%; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; float: right">
+                    Parse
+                </button>
+            </div>
+        </form>-->
+    </div>
+</div>
+{% if  request.COOKIES.helper == "a" %}
+    <script>
+        $(document).ready(function () {
+            $('.tap-target').tapTarget('open');
+        });
+    </script>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+<style>
+    
+    ul, li, body, div, a {
+      font-family: 'Roboto', sans-serif !important;
+    }
+    #curr {
+        opacity: 0;
+    }
+
+    #ico {
+        font-size: 40px;
+    }
+
+    #title {
+        font-size: 100px;
+    }
+
+    @media only screen and (max-width: 992px) {
+        #curr {
+            opacity: 1;
+        }
+
+        #ico {
+            font-size: 30px;
+        }
+
+        #title {
+            font-size: 50px;
+        }
+
+        #box {
+            padding-top: 20px;
+            padding-bottom: 25px;
+        }
+    }
+</style>
+
+</body>
+</html>

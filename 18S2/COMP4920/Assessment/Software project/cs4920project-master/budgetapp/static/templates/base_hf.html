@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Ipsum - Your one budgetting app</title>
+
+    <!--Icons provided by Google in accordance to the Apache License-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--CSS created by Materialize-->
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!-- Roboto font from Google -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- CSS for odometer -->
+    <link href="{% static 'css/odometer-theme-default.css' %}" type="text/css" rel="stylesheet"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body style="font-family: 'Roboto', sans-serif !important; ">
+    <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+	<div class="navbar-fixed">
+    	<nav class="z-depth-5" style="background-image: linear-gradient(to right, #11998e , #38ef7d);">
+            <!-- linear-gradient(to right, #11998e , #38ef7d) -->
+        	<div class="nav-wrapper">
+            
+            	<a href="/" class="brand-logo white-text"><ion-icon name="rose" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;"></ion-icon> Ipsum </a>
+            	<a href="#" data-target="hamburger" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            	<ul id="nav-mobile" class="right hide-on-med-and-down">
+
+                    <li class= "waves-effect waves-light"> <a href="/" style="font-size: 20px; font-weight: bold;"> Home </a> </li>
+
+            		<li class= "waves-effect waves-light"> <a href="/features" style="font-size: 20px; font-weight: bold;"> Features </a> </li>
+
+                    <li class= "waves-effect waves-light"> <a href="/download" style="font-size: 20px; font-weight: bold;"> Download </a> </li>
+
+            		
+                    {% if user.is_authenticated %}
+            		    
+                        <li class= "waves-effect waves-light"> <a href="{% url 'logout'%}?next=/" style="font-size: 20px; font-weight: bold;"><ion-icon name="log-out" size="large" style="display: inline-block; vertical-align: middle; padding-bottom: 4px;"></ion-icon> Logout </a> </li>
+
+                        <li> <a class="waves-effect waves-light btn-large" href="/overview" style="font-size: 20px; background-color: #11998e; font-weight: 900"><ion-icon name="apps" size="large" style="display: inline-block; vertical-align: middle; padding-bottom: 4px;"></ion-icon>Go to overview</a></li>
+
+                    {% else %}
+                        <li> <a class="waves-effect waves-light btn-large" href="{% url 'login'%}" style="font-size: 20px; background-color: #11998e; font-weight: 900;"><ion-icon name="log-in" size="large" style="display: inline-block; vertical-align: middle; padding-bottom: 4px;"></ion-icon> Login </a></li>
+
+                    {% endif %}
+            	</ul>
+        	</div>
+
+        	
+    	</nav>
+	</div>
+
+    <ul class="sidenav blue-grey darken-4" id="hamburger">
+        <br>
+        <a href="/" class="brand-logo white-text" style="margin-top: 20px; font-size: 35px;"><ion-icon name="rose" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;"></ion-icon> Menu </a>
+        
+        <div class="divider"></div>
+        <br>
+        <li><a class="white-text" href="/" style="padding-left: 20px; font-size: 24px;"> Home </a></li>
+        <li><a class="white-text" href="/features" style="padding-left: 20px; font-size: 24px;">Features</a></li>
+        <li><a class="white-text" href="/download" style="padding-left: 20px; font-size: 24px;"> Download </a> </li>
+        {% if user.is_authenticated %}
+        <li><a class="white-text" href="/overview" style="padding-left: 20px; font-size: 24px;"> Overview </a></li>
+        <li><a class="white-text" href="{% url 'logout'%}?next=/" style="padding-left: 20px; font-size: 24px;"> Logout </a></li>
+        {% else %}
+        <li><a class="white-text" href="/accounts/login" style="padding-left: 20px; font-size: 24px;"> Login </a></li>
+        {% endif %}
+    </ul>
+
+{% block content %}
+
+{% endblock %}
+
+<footer class="page-footer grey lighten-2">
+        <div class = "container grey-text text-darken-4 flow-text"> 
+           <div class = "row">
+                <div class = "col s4">
+                    <h5 style="border-left-width: 2px; border-left-color: #11998e; border-left-style: solid; padding-left: 7px;"> Navigate </h5>
+                    <ul class="table-of-contents" style="padding: 0; margin: 0;">
+                        <li><a href = "/" class="grey-text text-darken-3" style="font-size: 18px;"> Home </a> </li>
+                        <li><a href = "/features" class="grey-text text-darken-3" style="font-size: 18px;"> Features </a> </li>
+                        <li><a href = "/download" class="grey-text text-darken-3" style="font-size: 18px;"> Download </a> </li>
+                        {% if user.is_authenticated %}
+                            <li><a href = "/overview" class="grey-text text-darken-3" style="font-size: 18px;"> Overview </a> </li>
+                        {% else %}
+                            <li><a href = "/accounts/login" class="grey-text text-darken-3" style="font-size: 18px;"> Login </a> </li>
+<!--                             <li><a href = "/register" class="grey-text text-darken-3" style="font-size: 18px;">Register </a> </li> -->
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class = "col s8">
+                    <h5 class = "hide-on-med-and-down" style="border-left-width: 2px; border-left-color: #11998e; border-left-style: solid; padding-left: 7px;"> About our app </h5>
+                    <div class = "grey-text text-darken-3 hide-on-med-and-down" style="font-size: 16px;">
+​                       Made by some students, Ipsum aims to help with your budgeting needs. Our goal is to make an app that allows you to easily log transactions, identify key areas which are too high in spending, and allow you to easily adjust your budget as time goes on.
+                        <br>
+                        <h5 style="border-left-width: 2px; border-left-color: #11998e; border-left-style: solid; padding-left: 7px;"> Stay in the know </h5>
+                        <div class = "grey-text text-darken-3" style="font-size: 16px;">
+                            Subscribe to our newsletter
+                        </div>
+                        <div class = "row">
+                            <div class="col s9" style="margin-top: 5px;">
+                                <input id="email" type="email" class="validate" style="background-color: white;">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="col s3">
+                                <a class="waves-effect waves-light btn-large" href="/register" style="font-size: 20px; background-color: #11998e; font-weight: 900;">Subscribe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+           </div>
+        </div>
+
+        <div class="footer-copyright grey lighten-1">
+            <div class="container grey-text text-darken-4">
+                <div class = "row">
+                    <div class="left-align col s8">
+                        Prettified using MaterializeCSS
+                    </div>
+                    <a href="/credits" style="color: #11998e;"><div class="right-align col s2">
+                        Credits
+                    </div></a>
+                    <a href="/test" style="color: #11998e;"><div class="right-align col s2">
+                        Tests
+                    </div></a>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+    <style>
+        ul, li, body, div, a {
+          font-family: 'Roboto', sans-serif !important;
+        }
+    </style>
+</body>
+
+</html>

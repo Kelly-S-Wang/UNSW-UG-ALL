@@ -1,0 +1,250 @@
+{% extends 'base_db.html' %}
+{% load static %}}
+{% block content %}
+
+    <div id="main" class="container" style="padding-left: 5px;">
+        <div class="card">
+
+            <div class="card-content cyan darken-3">
+                <div class="row">
+                    <div class="col s12 left-align">
+                        <span class="card-title white-text"
+                              style="font-size: 40px; font-weight: bold; padding-top: 20px;"><i
+                                class="material-icons white-text" style="font-size: 100px;">settings</i>Profile Settings</span>
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" action="/settings/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12 m12 l4 left-align">
+                            {% with "users/"|add:full_name|add:"/profile.jpg" as profile_img %}
+                            
+                            <img class="circle" style="width: 100px; height: 100px;"
+                                 src="{% static profile_img %}">
+                            {% endwith %}
+                            <form action="#">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file" name="profile_img" accept="image/*">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col s12 m12 l6">
+                            <label for="username" style="font-size:16px;">Username</label>
+                            <input disabled id="username" type="text" class = "validate" name = "username" value={{full_name}} required>
+                            
+                            <div class = "left-align red-text" style="font-size: 12px; padding-left: 10%;">
+                                {{ email_error }}
+                            </div>
+                            <label for="email" style="font-size: 16px;">Email</label>
+                            <input id="email" type="email" value="{{ email }}" class="validate" name="email">
+
+                            <label for="password" style="font-size: 16px;">Change Password</label>
+                            <input id="password" type="password" class="validate" name="password">
+
+                            <label for="conf_password" style="font-size: 16px;">Confirm Password</label>
+                            <input id="password" type="password" class="validate" name="confirm_password">
+
+                            <div class = "left-align red-text" style="font-size: 12px; padding-left: 10%;">
+                                {{ password_error }}
+                            </div>
+                            <div class=left-align style="font-size: 12px;">
+                                Password must be at least 7 characters long and contain at least 1 number
+                            </div>
+
+                        </div>
+                        <button class="waves-effect waves-light btn-large s12" type="submit" formmethod="post"
+                                style=" width:100%; border-radius: 5px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px; float: right; margin-top: 30px;">
+                            Save
+                        </button>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+        <div class="card z-depth-3" style="margin-top: 80px;">
+            <div class="card-content">
+                I mean... if you want to delete your account you can I guess... :(
+                <button class="waves-effect waves-light btn right modal-trigger" href="#tos"
+                        style=" border-radius: 5px; font-size: 12px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;">
+                    Delete your acccount
+                </button>
+            </div>
+        </div>
+
+        <div id="tos" class="modal" style="padding-top: 5vh; padding-bottom: 3vh;">
+            <div class="modal-content">
+                <h4>We'll miss you :(</h4>
+                <p>
+                    Are you sure you want to delete your account? All of your data with us will be removed permenantly. However,
+                    you're always free to come back whenever of course!
+                </p>
+            </div>
+            <div class="modal-footer center-align" style="text-align: center;">
+                <a href="/deletemyaccountpls"><button class="waves-effect waves-light btn-large center-align" style=" border-radius: 40px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;"> Delete my account</button></a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+    <script src="{% static 'javascript/odometer.min.js' %}"></script>
+    <script>
+        {{odometer|safe}}
+    </script>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+    <style>
+        #main {
+
+            margin-left: 450px;
+        }
+
+        #txt {
+            font-size: 62px;
+        }
+
+        #daily_spend {
+            font-size: 62px;
+        }
+
+        #monthly_spend {
+            font-size: 62px;
+        }
+
+        #TODOREPLACE {
+            font-size: 62px;
+        }
+
+        @media only screen and (max-width: 1600px) {
+            #main {
+                margin-left: 375px;
+            }
+
+            #txt {
+                font-size: 42px;
+            }
+
+            #daily_spend {
+                font-size: 42px;
+            }
+
+            #monthly_spend {
+                font-size: 42px;
+            }
+
+            #TODOREPLACE {
+                font-size: 42px;
+            }
+        }
+
+        @media only screen and (max-width: 1400px) {
+            #main {
+                margin-left: 350px;
+            }
+
+            #txt {
+                font-size: 36px;
+            }
+
+            #daily_spend {
+                font-size: 36px;
+            }
+
+            #monthly_spend {
+                font-size: 36px;
+            }
+
+            #TODOREPLACE {
+                font-size: 36px;
+            }
+        }
+
+        @media only screen and (max-width: 1200px) {
+            #main {
+                margin-left: 300px;
+            }
+
+            #txt {
+                font-size: 32px;
+            }
+
+            #daily_spend {
+                font-size: 32px;
+            }
+
+            #monthly_spend {
+                font-size: 32px;
+            }
+
+            #TODOREPLACE {
+                font-size: 32px;
+            }
+        }
+
+        @media only screen and (max-width: 1000px) {
+            #main {
+                margin-left: 10%;
+            }
+
+            #txt {
+                font-size: 24px;
+            }
+
+            #daily_spend {
+                font-size: 24px;
+            }
+
+            #monthly_spend {
+                font-size: 24px;
+            }
+
+            #TODOREPLACE {
+                font-size: 24px;
+            }
+        }
+
+        @media only screen and (max-width: 700px) {
+            #main {
+                margin-left: 5%;
+            }
+
+            #txt {
+                font-size: 18px;
+            }
+
+            #daily_spend {
+                font-size: 18px;
+            }
+
+            #monthly_spend {
+                font-size: 18px;
+            }
+
+            #TODOREPLACE {
+                font-size: 18px;
+            }
+        }
+    </style>
+
+{% endblock %}

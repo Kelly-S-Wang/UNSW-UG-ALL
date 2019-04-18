@@ -1,0 +1,87 @@
+{% extends 'base_hf.html' %}
+{% load static %}}
+{% block content %}
+
+<div class="parallax-container" style="height: 450px;">
+    <div class = "container center-align" style="margin-top: 90px;">
+      	<h1 class="center-align white-text" style="padding-top: 50px; font-weight: 800"> Credits </h1>
+    	<h5 class="center-align white-text" style="padding-bottom: 10px"> This web application was made using various libraries and assets strewn throughout the internet. This page shall give credit to those whose assets/libraries
+	are being used.</h5>
+            
+    </div>
+    <div class="parallax"><img src="{% static 'images/landing_1.png' %}"></div>
+</div>
+<div class="container" style="margin-top: 100px;">
+
+	<div class="card z-depth-3">
+		<div class="card-content">
+			<img src="https://materializecss.com/res/materialize.svg" height="60"><span style="font-size: 40px; font-weight: 700;">MaterializeCSS </span>
+			<br>
+			For providing CSS and Javascript libraries which helped immensely in creating the UI of this site, and providing an easy way to follow material design.
+			The resources provided by MaterializeCSS fall under the <a href="https://opensource.org/licenses/MIT"> MIT License </a>
+			<br>
+			<b style="font-size: 18px;">Website can be found here: <a href="https://materializecss.com">https://materializecss.com</a></b>
+		</div>
+	</div>
+	<div class="card z-depth-3">
+		<div class="card-content">
+			<img src="https://www.chartjs.org/img/chartjs-logo.svg" height="115" style="display: inline-block;"><span style="font-size: 40px; font-weight: 700;">ChartJS </span>
+			<br>
+			An open source javascript library which contains a large amount of graphs and charts, some of which we used in our application.
+			The resources provided fall under the <a href="https://opensource.org/licenses/MIT"> MIT License </a>
+			<br>
+			<b style="font-size: 18px;">Website can be found here: <a href="https://www.chartjs.org">https://www.chartjs.org</a></b>
+		</div>
+	</div>
+	<div class="card z-depth-3">
+		<div class="card-content">
+			<img src="{% static 'images/odometer.png' %}" height="80" style="display: inline-block;"><span style="font-size: 40px; font-weight: 700;"> </span>
+			<br>
+			An open source javascript library which we used to create the animated numbers in our app.
+			The resources provided fall under the <a href="https://opensource.org/licenses/MIT"> MIT License </a>
+			<br>
+			<b style="font-size: 18px;">Website can be found here: <a href="https://github.hubspot.com/odometer/docs/welcome">Odometer page</a></b>
+		</div>
+	</div>
+	<div class="card z-depth-3">
+		<div class="card-content">
+			<ion-icon style="font-size: 110px;" name="logo-ionic"></ion-icon><span style="font-size: 40px; font-weight: 700;"> Ionicons </span>
+			<br>
+			An open source collection of icons which follow material design as well as IOS design. Various icons use this package, as well as our logo!
+			The resources provided fall under the <a href="https://opensource.org/licenses/MIT"> MIT License </a>
+			<br>
+			<b style="font-size: 18px;">Website can be found here: <a href="https://ionicons.com">https://ionicons.com</a></b>
+		</div>
+	</div>
+	<div class="card z-depth-3">
+		<div class="card-content">
+			<img src="{% static 'images/google.png' %}" height="100" style="display: inline-block;"><span style="font-size: 40px; font-weight: 700;"> Material Icons </span>
+			<br>
+			An open source collection of icons which follow closely to the material design standard. Used in many of our icons.
+			The resources provided fall under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html"> Apache License </a>
+			<br>
+			<b style="font-size: 18px;">Website can be found here: <a href="https://google.github.io/material-design-icons">https://google.github.io/material-design-icons</a></b>
+		</div>
+	</div>
+	<div class="card z-depth-3">
+		<div class="card-content">
+			<span style="font-size: 40px; font-weight: 900;"> PEXELS </span>
+			<br>
+			A site which provides stock photos under creative commons, allowing public use and modifications without any paid license. Almost all photos on our site are derived form this site. The reousrces provided fall under the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/"> CC0 License </a>
+			<br>
+			<b style="font-size: 18px;">Website can be found here: <a href="https://www.pexels.com">https://www.pexels.com</a></b>
+		</div>
+	</div>
+	<div style="margin-bottom: 80px">
+	</div>
+</div>
+
+    <!-- JS files provided by Materialize -->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'javascript/materialize.js' %}"></script>
+  <script src="{% static 'javascript/init.js' %}"></script>
+  <!-- For some reason above init.js doesn't load some things for me -->
+  <script> M.AutoInit(); </script>
+
+  <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+{% endblock %}

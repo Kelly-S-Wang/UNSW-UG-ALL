@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}}
+{% block content %}
+
+<body style="background-image: linear-gradient(to right, #11998e , #38ef7d); font-family: 'Roboto', sans-serif !important;">
+
+	<div id="cont" class=row>
+
+        <div id="block" class="col s12 m12 l4 center-align white z-depth-5 offset-l4" style="border-radius: 20px; padding-top: 5vh; padding-bottom: 3vh;">
+
+            <form method="POST" action="/registerconfirm/">
+                {% csrf_token %}
+
+                <div class="center-align" style="color: #11998e;  font-size: 32px; font-weight: 900;">
+                    <ion-icon name="rose" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;"></ion-icon>Ipsum
+                </div>
+                {{ terms_error }}
+        	    <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+
+                    <input id="username" type="text" class = "validate" name = "username" value="asdsd" required>
+                    <label for="username" style="padding-left: 10%;">Username</label>
+
+                </div>
+                <div class = "left-align red-text" style="font-size: 12px; padding-left: 10%;">
+                    {{ user_error }}
+                </div>
+
+        	    <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+
+                    <input id="email" type="email" class="validate" name="email" required>
+                    <label for="email" style="padding-left: 10%;">Email</label>
+
+                </div>
+                <div class = "left-align red-text" style="font-size: 12px; padding-left: 10%;">
+                    {{ email_error }}
+                </div>
+
+                <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+
+                    <input id="password" type="password" class="validate" name= "password" required>
+                    <label for="password" style="padding-left: 10%;">Password</label>
+
+                </div>
+
+                <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+
+                    <input id="confirm_password" type="password" class="validate" name="confirm_password" required>
+                    <label for="confirm_password" style="padding-left: 10%;">Confirm Password</label>
+
+                </div>
+
+                <div class = left-align style="font-size: 12px; padding-left: 10%;"> 
+            	    Password must be at least 7 characters long and contain at least 1 number
+                </div>
+                <div class = "left-align red-text" style="font-size: 12px; padding-left: 10%;">
+                    {{ password_error }}
+                </div>
+                <br><br>
+
+    		    <button class="waves-effect waves-light btn-large modal-trigger" href="#tos" style="width: 85%; border-radius: 40px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;"> Join now </button>
+
+                <div id="tos" class="modal" style="padding-top: 5vh; padding-bottom: 3vh;">
+                    <div class="modal-content">
+                        <h4>Terms of Use</h4>
+                        <p>
+                            By registering for our service, you agree to the following conditions:
+                            <li>
+                                Not intentionally screwing up our app
+                            </li>
+                            <li>
+                                You agree that the service comes with no warranty provided
+                            </li>
+                        </p>
+                        <h4>Privacy</h4>
+                        <p>
+                            We value your privacy, and do our best to ensure your data is secure.
+                            We use cookies to help provide you with a great experience using our app.
+                            Don't worry though, none of our cookies track you nor obtain any personal
+                            data from you.
+                        </p>
+                    </div>
+                    <div class="modal-footer center-align" style="text-align: center;">
+                        <button class="waves-effect waves-light btn-large center-align" type="submit" formmethod="post" style=" border-radius: 40px; font-size: 20px; background-color: #11998e; font-family: 'Roboto', sans-serif !important; font-weight: 900; border-radius: 40px;"> Agree and join</button>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="grey-text text-darken-2" style="font-size: 15px; padding-top: 15px; font-weight: 600;"> Have an account? </h5>
+                </div>
+                <a class="waves-effect waves-light btn-large center-align" href="/accounts/login" style="background-color: #20BB87; width: 85%; border-radius: 40px; font-weight: 900; font-size: 20px;"> Login</a>
+
+                <div style="padding-top: 10px; font-weight: 200;">
+                    <a href="/">Return to home</a>
+                </div>  
+            </form>
+        </div>
+
+    </div>
+
+    <style>
+        #block {
+            padding-top: 5vh; 
+            padding-bottom: 3vh;
+        }
+        #cont {
+            padding-top: 10vh;
+        }
+        
+
+        @media only screen and (max-width: 600px) {
+            #block {
+                padding-top: 0vh; 
+                padding-bottom: 0vh;
+            }
+            #cont {
+                padding-top: 5vh;
+                padding-bottom: 5vh;
+            }
+        }
+
+    </style>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+</body>
+{% endblock %}

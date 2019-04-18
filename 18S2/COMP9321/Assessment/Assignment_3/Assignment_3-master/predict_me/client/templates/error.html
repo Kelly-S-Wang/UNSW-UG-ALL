@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Predict Me</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  </head>
+
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 90%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      input[type=text] {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+          border: 3px solid #ccc;
+          -webkit-transition: 0.5s;
+          transition: 0.5s;
+      }
+
+      input[type=text]:focus {
+          border: 3px solid #555;
+      }
+
+
+
+
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700,600,800,400);
+      /* line 1, ../sass/other/_port.scss */
+      .active-one {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/tunnel.jpg") !important;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+      }
+
+      /* line 6, ../sass/other/_port.scss */
+      .active-two {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/upfeathers.png") !important;
+      }
+
+      /* line 9, ../sass/other/_port.scss */
+      .active-three {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/congruent_pentagon.png") !important;
+      }
+
+      /* line 12, ../sass/other/_port.scss */
+      .reset-style {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/patternSkull.png") !important;
+      }
+
+      /* Right port images */
+      /* line 17, ../sass/other/_port.scss */
+      .right-port-display {
+        width: 100%;
+        height: 100px;
+        float: none;
+        top: 0;
+        position: relative;
+      }
+      /* line 23, ../sass/other/_port.scss */
+      .right-port-display .right-port {
+        width: 100px;
+        height: 100px;
+        margin-right: 5px;
+        float: left;
+      }
+
+      /* line 30, ../sass/other/_port.scss */
+      .rOne {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/dark_embroidery.png");
+        background-size: contain;
+      }
+
+      /* line 34, ../sass/other/_port.scss */
+      .rTwo {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/upfeathers.png");
+        background-size: contain;
+      }
+
+      /* line 38, ../sass/other/_port.scss */
+      .rThree {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/congruent_pentagon.png");
+        background-size: contain;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      html, body, div, span, applet, object, iframe, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, label, legend, p, blockquote, table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      body {
+        line-height: 1;
+        color: black;
+        background: white;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      :focus {
+        outline: 0;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      caption, th, td {
+        text-align: left;
+        font-weight: normal;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      fieldset, img {
+        border: 0;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      address, caption, cite, code, dfn, em, strong, th, var {
+        font-style: normal;
+        font-weight: normal;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      ol, ul {
+        list-style: none;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      h1, h2, h3, h4, h5, h6 {
+        font-size: 100%;
+        font-weight: normal;
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      blockquote:before, blockquote:after, q:before, q:after {
+        content: "";
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      blockquote, q {
+        quotes: "" "";
+      }
+
+      /* line 1, ../sass/other/_reset.scss */
+      abbr, acronym {
+        border: 0;
+      }
+
+      /* Pinterest */
+      /* line 2, ../sass/other/_pinterest.scss */
+      #pinterest-gallery {
+        overflow: auto;
+        width: 100%;
+        list-style: none;
+        margin: 0 auto;
+      }
+
+      /* line 10, ../sass/other/_pinterest.scss */
+      #pinterest-gallery li {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background-size: cover;
+        margin: .1em;
+        padding: 0;
+        border: none;
+      }
+
+      /* line 20, ../sass/other/_pinterest.scss */
+      #pinterest-gallery img {
+        border: none;
+      }
+
+      /* line 22, ../sass/other/_pinterest.scss */
+      .pinterest-link {
+        display: block;
+        overflow: hidden;
+        text-indent: 100%;
+        height: 100%;
+        white-space: nowrap;
+      }
+
+      /* Internet Explorer correction */
+      /* line 31, ../sass/other/_pinterest.scss */
+      #pinterest-gallery li a {
+        color: transparent;
+        line-height: 1px;
+        font-size: 0px;
+      }
+
+      /* line 36, ../sass/other/_pinterest.scss */
+      .pinterest_featured {
+        padding: 1px;
+      }
+
+      /* line 39, ../sass/other/_pinterest.scss */
+      div.pinterest_featured > .helper > span:first-child {
+        background: #fff !important;
+        box-shadow: 0 0 0 transparent !important;
+        border-radius: 0px !important;
+      }
+
+      /* line 44, ../sass/other/_pinterest.scss */
+      div.pinterest_featured > .helper > span > span:first-child {
+        display: none !important;
+      }
+
+      /* line 47, ../sass/other/_pinterest.scss */
+      div.pinterest_featured > .helper > span > a, div.pinterest_wrapper > .helper > span > a {
+        cursor: pointer !important;
+        text-shadow: 0 1px #fff !important;
+        display: block !important;
+        text-align: center !important;
+        border: 1px solid #ccc !important;
+        margin: 10px 10px 0 !important;
+        height: 31px !important;
+        line-height: 30px !important;
+        border-radius: 0px !important;
+        text-decoration: none !important;
+        font-family: Helvetica !important;
+        font-weight: bold !important;
+        font-size: 13px !important;
+        color: #746d6a !important;
+        background: #ffffff;
+      }
+
+      /* line 64, ../sass/other/_pinterest.scss */
+      .pinterest_wrapper {
+        display: inline-block;
+        margin: 0 auto;
+        padding: 1px;
+        position: relative;
+      }
+
+      /* line 70, ../sass/other/_pinterest.scss */
+      div.pinterest_wrapper > .helper > span > span:first-child {
+        /* TODO: Need to use css tricks .hide technique */
+        display: none !important;
+      }
+
+      /* line 74, ../sass/other/_pinterest.scss */
+      div.pinterest_wrapper > .helper > span:first-child {
+        background: #fff !important;
+        box-shadow: 0 0 0 transparent !important;
+        border-radius: 0px !important;
+      }
+
+      /* line 2, ../sass/other/_menu.scss */
+      .nav-bar {
+        width: 0%;
+        float: left;
+        background: #5B1E32;
+        color: #fff;
+        text-align: center;
+        height: 100%;
+        /*menu motion: transition: 0.5s;*/
+      }
+      /* line 10, ../sass/other/_menu.scss */
+      .nav-bar h1 {
+        margin-top: 5px;
+        text-transform: uppercase;
+      }
+      /* line 14, ../sass/other/_menu.scss */
+      .nav-bar li {
+        height: 40px;
+        margin-top: 10px;
+        padding: 15px;
+        font-size: 0.8em;
+      }
+      /* line 19, ../sass/other/_menu.scss */
+      .nav-bar li:hover {
+        background: #8E2839;
+      }
+      /* line 23, ../sass/other/_menu.scss */
+      .nav-bar a {
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 1.4em;
+        font-weight: 600;
+      }
+
+      /* line 31, ../sass/other/_menu.scss */
+      .menuIcon {
+        background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/80560/menu-alt-32.png") no-repeat left top;
+        width: 30px;
+        height: 30px;
+        float: left;
+      }
+
+      /* line 37, ../sass/other/_menu.scss */
+      .menuOpen {
+        width: 85% !important;
+      }
+
+      /* line 40, ../sass/other/_menu.scss */
+      .menuOpenMain {
+        width: 15%;
+      }
+
+      /* line 43, ../sass/other/_menu.scss */
+      .menuHolder {
+        width: 100%;
+        height: 36px;
+        clear: both;
+      }
+
+      /* line 48, ../sass/other/_menu.scss */
+      .rightMenuIcon {
+        background: url("") no-repeat left top;
+        width: 30px;
+        height: 30px;
+        display: none;
+        float: right;
+      }
+
+      /* line 55, ../sass/other/_menu.scss */
+      .rightImageActive {
+        width: 50% !important;
+        display: block !important;
+      }
+
+      /* line 59, ../sass/other/_menu.scss */
+      .leftSideActive {
+        width: 50% !important;
+      }
+
+      /* line 1, ../sass/other/_article.scss */
+      .one {
+        background: url("");
+        background-size: contain;
+      }
+
+      /* line 5, ../sass/other/_article.scss */
+      .two {
+        background: url("");
+        background-size: contain;
+      }
+
+      /* line 9, ../sass/other/_article.scss */
+      .three {
+        background: url("");
+        background-size: contain;
+      }
+
+      /* line 13, ../sass/other/_article.scss */
+      .port-display {
+        width: 100%;
+        height: 100px;
+        float: none;
+      }
+      /* line 17, ../sass/other/_article.scss */
+      .port-display .small-port {
+        width: 100px;
+        height: 100px;
+        border: 0px #000 dotted;
+        margin-right: 5px;
+        float: left;
+        transition: 0.5s;
+      }
+      /* line 24, ../sass/other/_article.scss */
+      .port-display .small-port:hover {
+        opacity: 0.5;
+      }
+
+      /* line 1, ../sass/other/_layout.scss */
+      .col-wrap {
+        border: 0px blue solid;
+        float: left;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* line 7, ../sass/other/_layout.scss */
+      .left-content {
+        background: #FFF9FC;
+        float: left;
+        width: 60%;
+        height: 100%;
+        padding: 20px;
+        overflow-y: scroll;
+      }
+      /* line 14, ../sass/other/_layout.scss */
+      .left-content .panel-1 {
+        padding: 30px;
+      }
+
+      /* line 18, ../sass/other/_layout.scss */
+      .right-content {
+        float: left;
+        width: 40%;
+        background: #ccc;
+        height: 100%;
+        background: url("");
+        background-position: center;
+        position: relative;
+      }
+      /* line 24, ../sass/other/_layout.scss */
+      .right-content img {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* Site Start css */
+      /* line 12, ../sass/style.scss */
+      *, :after, :before {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      /* line 18, ../sass/style.scss */
+      html {
+        overflow-y: none;
+      }
+
+      /* line 21, ../sass/style.scss */
+      html, body {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* line 25, ../sass/style.scss */
+      img {
+        width: 100%;
+      }
+
+      /* line 28, ../sass/style.scss */
+      h1 {
+        font-size: 1.7em;
+        font-weight: 800;
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      /* line 33, ../sass/style.scss */
+      p {
+        line-height: 1.3;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      /* line 38, ../sass/style.scss */
+      .image-head {
+        background: rgba(0, 0, 0, 0.56);
+        height: 100px;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+      }
+      /* line 46, ../sass/style.scss */
+      .image-head h1 {
+        color: #fff;
+      }
+      /* line 49, ../sass/style.scss */
+      .image-head p {
+        color: #fff;
+      }
+
+      @media only screen and (max-width: 870px) {
+        /* menu */
+        /* line 5, ../sass/other/_media.scss */
+        .nav-bar a {
+          font-size: 0.8em;
+        }
+
+        /* Layout */
+        /* line 10, ../sass/other/_media.scss */
+        .left-content {
+          width: 70%;
+        }
+
+        /* line 13, ../sass/other/_media.scss */
+        .right-content {
+          width: 30%;
+        }
+
+        /* article */
+        /* line 18, ../sass/other/_media.scss */
+        .port-display .small-port {
+          width: 100% !important;
+          margin-top: 5px;
+        }
+      }
+      @media only screen and (max-width: 700px) {
+        /* line 25, ../sass/other/_media.scss */
+        .right-content {
+          display: none;
+        }
+
+        /* line 28, ../sass/other/_media.scss */
+        .left-content {
+          width: 100%;
+        }
+
+        /* line 31, ../sass/other/_media.scss */
+        .rightMenuIcon {
+          display: block;
+        }
+      }
+      @media only screen and (max-width: 520px) {
+        /* line 36, ../sass/other/_media.scss */
+        .left-content .panel-1 {
+          padding: 0px;
+          padding-top: 10px;
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="navbar-fixed">
+      <nav class="white" role="navigation">
+        <div class="nav-wrapper">
+
+          <a id="logo-container" href="/" class="brand-logo"><i class="material-icons" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;">multiline_chart</i>Predict Me</a>
+
+          <ul id="nav-mobile" class="sidenav">
+            <li><a href="/">Home</a></li>
+          </ul>
+          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+    </div>
+
+
+
+<div class="col-wrap">
+  <div class="left-content">
+
+    <div class="panel-1">
+      <h1>Prediction result</h1>
+      <br/>
+      <img src="http://placehold.it/350x200">
+
+    </div>
+  </div>
+  <div class="right-content">
+      <p style="font-family: 'Open Sans', sans-serif; margin-left: 100px; margin-right: 100px; margin-top: 135px;  " >{{errmsg}}</p>
+      
+  </div>
+</div>
+
+
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+    <script>
+      // RODO: redo this in a much cleaner way and relase it, maybe Vue.js?
+var main = function () {
+    // close menu default
+    //$(".nav-bar").css({"display":"none"});
+    // Images content
+    // one
+    var imgOneTitle = "This is image One...";
+    var imgOneDis = "Donec aliquet elementum posuere. In ac consectetur libero";
+    // two
+    var imgTwoTitle = "This is image Two...";
+    var imgTwoDis = "Donec aliquet elementum posuere. In ac consectetur libero";
+    // three
+    var imgThreeTitle = "This is image Three...";
+    var imgThreeDis = "Donec aliquet elementum posuere. In ac consectetur libero";
+    // create html markup
+    var imgStart = "<div class='image-head'><h1>";
+    var imgMid = "</h1><p>";
+    var imgEnd = "</p></div>";
+    // add it all together for each image
+    var imgOne = imgStart + imgOneTitle + imgMid + imgOneDis + imgEnd;
+    var imgTwo = imgStart + imgTwoTitle + imgMid + imgTwoDis + imgEnd;
+    var imgThree = imgStart + imgThreeTitle + imgMid + imgThreeDis + imgEnd;
+    
+    var rightContent = $(".right-content");
+    
+    // Toggle right images on/off
+    $(".one").click(function() {
+        rightContent
+            .removeClass("active-two active-three reset-style")
+            .addClass("active-one")
+            .html("")
+            .html(imgOne);
+    });
+    $(".two").click(function() {
+        rightContent
+            .removeClass("active-one active-three reset-style")
+            .addClass("active-two")
+            .html("")
+            .html(imgTwo);
+    })
+    $(".three").click(function() {
+        rightContent
+            .removeClass("active-one active-two reset-style")
+            .addClass("active-three")
+            .html("")
+            .html(imgThree);
+    });
+    // reset background debug
+    $(".reset").click(function(){
+        rightContent
+            .addClass("reset-style")
+            .html("");
+    });
+}
+var menuAnim = function () {
+    
+}
+// menu functions
+var menu = function () {
+    var rightContent = $(".right-content");
+    // selects menu button to make it on/off button
+    $(".menuIcon").click(function(){
+        // toggles on/off width: 15%, menu default is 0%
+        $(".nav-bar").toggleClass("menuOpenMain");
+        // toggles overide class to make page fit 85%  with 15% menu
+        $(".col-wrap").toggleClass("menuOpen");
+    });
+    // right image menu
+    $(".rightMenuIcon").click(function(){
+        rightContent.toggleClass("rightImageActive");
+        $(".left-content").toggleClass("leftSideActive");
+    });
+}
+
+// Toggle menu on/off
+var menuOn = true;
+
+var check = function () {
+    if(menuOn){
+        main();
+        menu();
+    }else {
+        console.log("menuOn is FALSE");
+        return false;
+  }
+}
+$(document).ready(check);
+    </script>
+
+  </body>
+</html>

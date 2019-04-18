@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Predict Me</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<body style="background-image: url(static/images/wooden.jpg);">
+  <div id="cont" class=row >
+    <div id ="block" class = "col s12 m12 l6 center-align white z-depth-5 offset-l3" style="border-radius: 20px;">
+
+      <div class="center-align teal-text text-lighten-2" style="font-size: 42px; font-weight: 600;">
+        <i class="material-icons" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;">multiline_chart</i>Predict Me
+      </div>
+
+      <h5 class ="center-align grey-text text-darken-1" style="font-weight: bold; font-size: 25px;">Welcome!</h5>
+      <br>
+      <form method="POST">
+        <div class = row>
+
+        <!--         <p style = "color: red">Your username and password didn't match. Please try again.</p> -->
+
+          <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+            <input placeholder="" id="username" name='usrName' type="text" class="validate">
+            <label for="username" style="padding-left: 10%;">Username/Email</label>
+          </div>
+
+          <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+            <input placeholder="" id="password" name='password' type="password" class="validate">
+            <label for="password" style="padding-left: 10%;">Password</label>
+          </div>
+
+        <!-- <div class = left-align style="font-size: 12px; padding-left: 10%;"> <a href=""> Help! I forgot my password </a> </div> -->
+        <br>
+      </div>
+
+      <button class="waves-effect waves-light btn-large accent-3 center-align" type="submit" formmethod="post" style="width: 85%; border-radius: 40px; font-weight: 900; font-family: 'Roboto', sans-serif !important; font-size: 20px;">Login</button>
+
+      <div>
+        <h5 style="font-size: 15px; padding-top: 18px;"><b> New user? </h5>
+      </div>
+      
+      <div>
+        <a class="waves-effect waves-light btn-large accent-4 center-align" href="/register" style="width: 85%; border-radius: 40px; font-size: 20px;">Register here!</a>
+      </div>
+          {% if displayAlert %}
+          <script> window.alert('Username or Password not correct!') </script>
+         <!-- <p style="color:red; font-size: 20px;">Incorrect login details, please login again.</p> -->
+         {% endif %}
+      <div style="padding-top: 20px; font-weight: 200">
+          <a href="/">Return to home</a>
+      </div>
+    </form>
+    </div>
+  </div>
+  <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+
+  <style>
+  #block {
+    padding-top: 5vh; 
+    padding-bottom: 3vh;
+  }
+  #cont {
+    padding-top: 10vh;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #block {
+        padding-top: 0vh; 
+        padding-bottom: 0vh;
+    }
+    #cont {
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+    }
+  }
+  </style>
+
+</body>
+    <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="static/js/materialize.js"></script>
+    <script src="static/js/init.js"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+</html>

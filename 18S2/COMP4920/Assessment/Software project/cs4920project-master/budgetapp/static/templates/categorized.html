@@ -1,0 +1,244 @@
+{% extends 'base_db.html' %}
+{% load static %}
+{% block content %}
+
+  <div id="main" class="container" style="padding-left: 5px;">
+    <div class="card">
+
+      <div class="card-content teal accent-3">
+        <div class="row">
+          <div class="col s12 left-align">
+            <span class="card-title white-text" style="font-size: 40px; font-weight: bold; padding-top: 20px;"><i class="material-icons white-text" style="font-size: 100px;">history</i>Categorized Transactions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-content">
+        <form action="#" method="get">
+            <button type="submit" name="category" class="waves-effect waves-light btn-large" style="width: 100%; font-size: 20px; background-color: #11998e; font-weight: 900; font-family: 'Roboto', sans-serif !important; border-radius: 20px; margin-bottom: 20px;">View All Transactions</button>
+        </form>
+        <h2 class="center-align teal accent-3 white-text z-depth-2" style="padding: 30px;"> Income </h2>
+        {% for item, val in catincome.items %}
+        <ul class="card z-depth-2 grey-text text-darken-2 hoverable collapsible" style="margin: 0px 0px 10px 0px; border:none; padding: 6px; ">
+            <li>
+
+            <div class="card-content collapsible-header" style="display: block; padding: 0; margin-bottom: 0;">
+                <div class="">
+                    {% if item == "Salary" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_income.Salary}}</span>
+                        <div class="progress green lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate green darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Investments" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_income.Investments}}</span>
+                        <div class="progress red lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate red darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Other/Income" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_income.Other}}</span>
+                        <div class="progress blue lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate blue darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% else %}
+                    <div class="green accent-4 white-text z-depth-2" style="font-size: 24px; padding: 7px;">
+                        <i class="material-icons white-text" style="font-size: 34px;">check_circle_outline</i>{{ item }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div> 
+            <div class="collapsible-body" style="padding: 0rem !important; margin: 0; vertical-align: top;">
+                <ul class="collapsible" style="margin-bottom: 0;">
+                    
+                    {% for i in val %}
+                        {% include "macros/transaction_div.html" with transaction=i %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
+        </ul>
+        {% endfor %}
+        {% if not catincome %}
+            <h3 class="center-align grey-text text-darken-1" style="padding-bottom: 10px;"> No transactions so far </h3>
+        {% endif %}
+        <h2 class="center-align teal accent-3 white-text z-depth-2" style="padding: 30px;"> Expenses </h2>
+        {% for item, val in catexpense.items %}
+        <ul class="card z-depth-2 grey-text text-darken-2 hoverable collapsible" style="margin: 0px 0px 10px 0px; border:none; padding: 6px; ">
+            <li>
+
+            <div class="card-content collapsible-header" style="padding: 10px 10px 0px 10px; display: block; border-bottom: none;">
+                <div class="">
+                    {% if item == "Entertainment" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Entertainment}}</span>
+                        <div class="progress orange lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate orange darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Travel" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Travel}}</span>
+                        <div class="progress red lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate red darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Food/Drinks" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Food}}</span>
+                        <div class="progress pink lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate pink darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Clothing" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Clothing}}</span>
+                        <div class="progress blue lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate blue darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Electronics" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Electronics}}</span>
+                        <div class="progress light-green lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate light-green darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Debt" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Debt}}</span>
+                        <div class="progress amber lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate amber darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Pets" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Pets}}</span>
+                        <div class="progress green lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate green darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Automobile" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Automobile}}</span>
+                        <div class="progress indigo lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate indigo darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Other/Expenses" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Other}}</span>
+                        <div class="progress grey lighten-1" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate grey darken-2" style="width: 20%;"></div>
+                        </div>
+                    {% elif item == "Bills" %}
+                    <span id="cat" class="card-title left-align left">{{item}}</span>
+                    <span id="exp" class="card-title right-align right">${{ sum_expense.Bills}}</span>
+                        <div class="progress light-blue lighten-2" style="padding: 0px; height: 6px; border-radius: 10px;">
+                            <div class="determinate light-blue darken-1" style="width: 20%;"></div>
+                        </div>
+                    {% else %}
+                    <div class="green accent-4 white-text z-depth-2" style="font-size: 24px; padding: 7px;">
+                        <i class="material-icons white-text" style="font-size: 34px;">check_circle_outline</i>{{ item }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div> 
+            <div class="collapsible-body" style="padding: 0rem !important; margin: 0; vertical-align: top;">
+                <ul class="collapsible" style="margin-bottom: 0;">
+                    
+                    {% for i in val %}
+                        {% include "macros/transaction_div.html" with transaction=i %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
+        </ul>
+        {% endfor %}
+        {% if not catexpense %}
+            <h3 class="center-align grey-text text-darken-1" style="padding-bottom: 10px;"> No transactions so far </h3>
+        {% endif %}
+    </div>
+
+<!--     <div class="row" style="margin-bottom: 0px !important;">
+      <div class="">
+
+      </div>
+    </div> -->
+  </div>
+  <!-- JS files provided by Materialize -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'javascript/materialize.js' %}"></script>
+    <script src="{% static 'javascript/init.js' %}"></script>
+    <!-- For some reason above init.js doesn't load some things for me -->
+    <script> M.AutoInit(); </script>
+
+    <!-- JS files for charts from chartjs.org -->
+    <script src="{% static 'javascript/Chart.bundle.js' %}"></script>
+    <script src="{% static 'javascript/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/mycharts.js' %}"></script>
+
+    <script src="{% static 'javascript/odometer.min.js' %}"></script>
+    <script>
+    	{{odometer|safe}}
+    </script>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+    <style>
+        
+        #exp {
+            font-size: 26px;
+        }
+
+        #cat {
+            font-size: 26px;
+        }
+        #main {
+            margin-left: 450px;
+        }
+        @media only screen and (max-width: 1600px) {
+            #exp {
+                font-size: 25px;
+            }
+            #main {
+                margin-left: 375px;
+            }
+        }
+
+        @media only screen and (max-width: 1440px) {
+            #exp {
+                font-size: 25px;
+            }
+            #main {
+                margin-left: 350px;
+            }
+        }
+
+        @media only screen and (max-width: 1200px) {
+            #exp {
+                font-size: 24px;
+            }
+            #main {
+                margin-left: 300px;
+            }
+        }
+
+        @media only screen and (max-width: 1000px) {
+            #exp {
+                font-size: 23px;
+            }
+            #cat {
+                font-size: 22px;
+            }
+            #main {
+                margin-left: 10%;
+            }
+        }
+
+        @media only screen and (max-width: 700px) {
+            #exp {
+                font-size: 22px;
+            }
+            #cat {
+                font-size: 22px;
+            }
+            #main {
+                margin-left: 5%;
+            }
+        }
+
+    </style>
+
+{% endblock %}

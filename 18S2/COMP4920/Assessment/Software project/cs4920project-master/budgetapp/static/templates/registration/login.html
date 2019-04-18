@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}}
+{% block content %}
+
+<head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    {% if user.is_authenticated %}
+        <meta http-equiv="refresh" content="1; url=/overview">
+    {% endif %}
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+
+<body style="background-image: linear-gradient(to right, #11998e , #38ef7d); font-family: 'Roboto', sans-serif !important;">
+    <div id="cont" class=row >
+
+        <div id ="block" class = "col s12 m12 l4 center-align white z-depth-5 offset-l4" style="border-radius: 20px;">
+            {% if user.is_authenticated %}
+                <a class="waves-effect waves-light btn-large accent-4 center-align" href="/overview" style="width: 85%; border-radius: 40px; font-weight: 900; font-size: 20px;">Go to overview</a>
+            {% else %}
+            <div class="center-align" style="color: #11998e;  font-size: 32px; font-weight: 900;">
+                <ion-icon name="rose" style="display: inline-block; vertical-align: middle; padding-bottom: 10px; font-size: 50px;"></ion-icon>Ipsum
+            </div>
+
+            <h5 class ="center-align grey-text text-darken-1" style="font-weight: bold; font-size: 25px;">Welcome!</h5>
+            <br>
+            <br>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div class = row>
+
+                    {% if form.errors %}
+                        <p style = "color: red">Your username and password didn't match. Please try again.</p>
+                    {% endif %}
+
+                    <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+
+                        <td>{{ form.username}}</td>
+                        <label for="username" style="padding-left: 10%;">Username</label>
+
+                    </div>
+                    {{ email_error }}
+
+                    <div class = "input-field col s12" style="padding-left: 10%; padding-right: 10%;">
+
+                        <td>{{ form.password }}</td>
+                        <label for="password" style="padding-left: 10%;">Password</label>
+                    </div>
+                    {{ password_error }}
+
+                    <br>
+                    <br>
+                </div>
+
+                <button class="waves-effect waves-light btn-large accent-3 center-align" type="submit" formmethod="post" style="width: 85%; border-radius: 40px; font-weight: 900; font-family: 'Roboto', sans-serif !important; font-size: 20px;">Login</button>
+            </form>
+
+            <h5 class="grey-text text-darken-2" style="font-size: 15px; padding-top: 5px; font-weight: 600;">Or login using</h5>
+            <div class="row">
+                <a href="#" class="fb btn-social btn center-align col s2 offset-s2"><i class="fa fa-facebook fa-fw" style="padding-top: 7px;"></i></a>
+                <a href="#" class="twitter btn-social btn center-align col s2 offset-s1"><i class="fa fa-twitter fa-fw" style="padding-top: 7px;"></i></a>
+                <a href="#" class="google btn-social btn center-align col s2 offset-s1"><i class="fa fa-google fa-fw" style="padding-top: 7px;"></i></a>
+            </div>
+            <div>
+                <h5 class="grey-text text-darken-2" style="font-size: 15px; padding-top: 18px; font-weight: 600;"> New user? 
+            </div>
+            <a class="waves-effect waves-light btn-large center-align" href="/register" style="background-color: #20BB87; width: 85%; border-radius: 40px; font-weight: 900; font-size: 20px;">Register here</a>
+
+            <div style="padding-top: 20px; font-weight: 200">
+                <a href="/">Return to home</a>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/ionicons@4.4.2/dist/ionicons.js"></script>
+
+<!-- Google login -->
+<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+<script>
+  function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+
+    // The ID token you need to pass to your backend:
+    var id_token = googleUser.getAuthResponse().id_token;
+    console.log("ID Token: " + id_token);
+  };
+</script> -->
+<style>
+    #block {
+        padding-top: 5vh; 
+        padding-bottom: 3vh;
+    }
+    #cont {
+        padding-top: 10vh;
+    }
+    
+
+    @media only screen and (max-width: 600px) {
+        #block {
+            padding-top: 0vh; 
+            padding-bottom: 0vh;
+        }
+        #cont {
+            padding-top: 5vh;
+            padding-bottom: 5vh;
+        }
+    }
+
+</style>
+
+</body>
+
+{% endblock %}
