@@ -1,0 +1,81 @@
+#!/bin/bash
+
+test1="a"
+test2="dog"
+test3="bB"
+test4="dog god"
+test5="A man, a plan, a canal, Panama!"
+test6="1121"
+test7="a b12 1ba"
+
+make >/dev/null
+
+#test 1
+out1=`./pal "$test1"`
+if [ "$out1" == "palindrome" ]
+then
+    echo "test 1: passed"
+else
+    echo "test 1: failed"
+    echo "input (palindrome) was: \"$test1\""
+fi
+
+#test 2
+out2=`./pal "$test2"`
+if [ "$out2" == "not palindrome" ]
+then
+    echo "test 2: passed"
+else
+    echo "test 2: failed"
+    echo "input (not palindrome) was: \"$test2\""
+fi
+
+#test 3
+out3=`./pal "$test3"`
+if [ "$out3" == "palindrome" ]
+then
+    echo "test 3: passed"
+else
+    echo "test 3: failed"
+    echo "input (palindrome) was: \"$test3\""
+fi
+
+#test 4
+out4=`./pal "$test4"`
+if [ "$out4" == "palindrome" ]
+then
+    echo "test 4: passed"
+else
+    echo "test 4: failed"
+    echo "input (palindrome) was: \"$test4\""
+fi
+
+#test 5
+out5=`./pal "$test5"`
+if [ "$out5" == "palindrome" ]
+then
+    echo "test 5: passed"
+else
+    echo "test 5: failed"
+    echo "input (palindrome) was: \"$test5\""
+fi
+
+#test 6
+out6=`./pal "$test6"`
+if [ "$out6" == "not palindrome" ]
+then
+    echo "test 6: passed"
+else
+    echo "test 6: failed"
+    echo "input (not palindrome) was: \"$test6\""
+fi
+
+#test 5
+out7=`./pal "$test7"`
+if [ "$out7" == "palindrome" ]
+then
+    echo "test 7: passed"
+else
+    echo "test 7: failed"
+    echo "input (palindrome) was: \"$test7\""
+fi

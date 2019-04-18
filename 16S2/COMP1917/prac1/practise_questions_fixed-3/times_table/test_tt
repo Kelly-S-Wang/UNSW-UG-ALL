@@ -1,0 +1,26 @@
+#!/bin/bash
+
+make >/dev/null
+
+i=1
+j=1
+./tt > actual.out
+passed=`diff expected.out actual.out`
+
+if [ "$passed" == "" ]
+then
+    echo "you passed the test!"
+else
+    echo "you failed"
+    echo
+    echo "expected output: "
+    cat expected.out
+    echo
+    echo "your output:"
+    ./tt
+    ./tt > actual.out
+    echo
+    echo "difference: "
+    diff expected.out actual.out
+    rm actual.out
+fi
