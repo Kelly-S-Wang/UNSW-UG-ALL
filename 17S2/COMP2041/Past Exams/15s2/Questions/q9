@@ -1,0 +1,49 @@
+Question 9_am - 2 Marks
+
+Write a shell pipeline that given student enrollment data in the above format
+outputs the student number of all students enrolled in exactly two courses.
+
+The student numbers should be printed one per line and each student's  number
+should be printed once.  The student numbers should be printed in sorted order.
+
+For example, given the above input your
+pipeline should output this:
+
+{{{
+3360582
+3860448
+3863711
+5456732
+}}}
+
+Your answer must be a shell pipeline. You may not use `while`, `for` or other loops.
+You may not use Perl or Python.  You may use the usual Unix filters.
+
+__________
+__________
+__________
+__________
+__________
+__________
+
+
+
+
+
+Sample Answer:
+
+cut -d\| -f2|sort|uniq -c|grep '^ *2 '|sed 's/.* //'
+
+Marking Scheme
+
+1.5/2.0  output correct but not sorted
+1.5/2.0  minor error (passes 2 tests)
+
+Question 9_am Tests
+
+cat /home/cs2041/15s2.work/exam_q9_am/tests/tests.txt
+0	5	cp  test0 enrollments.txt; sh ./q9.sh   	diff -iBw	-as		enrollments0.txt
+1	10	cp  test1 enrollments.txt; sh ./q9.sh  	diff -iBw	-as		enrollments1.txt
+2	10	cp  test2 enrollments.txt; sh ./q9.sh  	diff -iBw	-as		enrollments2.txt
+3	5	egrep 'perl|python|while|for' q9.sh  	diff -iBw	-as		language check
+

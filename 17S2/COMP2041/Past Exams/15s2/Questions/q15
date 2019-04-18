@@ -1,0 +1,252 @@
+
+The text of the questions are appended.
+
+They should be respectively available for marking by running
+/home/cs2041/bin/classrun -mark  
+and selecting exam_q18_am or exam_q18_pm   + all
+
+Each question is worth 10 marks.
+I've included only a basic marking
+scheme.  You'll need to refine it.
+
+I need a  summary of the refinements/changes you make to the marking
+scheme in case students ask to review  their marking.
+
+You don't have to do anything other than award a mark out of 10.
+No need to indicate the reason for the mark.
+But unusual cases you can leave and ask me to  take a look.
+
+The auto marking tests are in these directories
+Hopefully you can decode the format (start with tests.txt)
+
+/home/cs2041/15s2.work/exam_q18_am/tests
+  Tests 1-6 were ones they were given 
+  Tests 7-12 they hadn't seen
+  Note, some tests have multiple correct outputs so a correct program may fail a test
+/home/cs2041/15s2.work/exam_q18_pm/tests
+  They'd seen all 4 input files
+
+Marking Scheme for Both Sessions
+
+You'll need to refine a marking scheme for both
+
+I'd suggest starting with:
+
+
++2.5 correct code to recognise  anagrams/doublets
++2.5 clear strategy with coherent code
+
+5/10     max mark without partial results
+
+-2 words with anagram groups not sorted
+-2 anagram groups of equal length not sorted
+-3 both above
+
+-2 non-trivial error
+
+You can (should) award intermediate marks.  
+
+No marks/penalty for style & comments.
+
+Note as both questions ask for a file to be changed
+this simple script
+/home/cs2041/public_html/15s2/scripts/show_file_changes
+show the file after the students program is run.
+
+Occasionally you may want to edit an answer and rerun
+the tests, and you should be able to via tears:
+
+% /home/give/stable/bin/tears cs2041 exam_q18_am all 3404196
+% /home/give/stable/bin/tears cs2041 exam_q18_pm all 3404196
+
+then inside tears editing the submission (not the top level file),e.g.:
+
+vi .submissions/q18.final.pl
+
+Then inside tears this scripts should rerun the tests:
+/home/cs2041/public_html/15s2/scripts/automark_student
+
+Keep me up to date with how you are going.
+
+Andrew (0425239255)
+
+Q17 AM Question
+
+The author Lewis Carroll invented a game named ''Word Ladders''.
+A player is given two words of the same length.
+The player then attempt to find the shortest ''word ladder''
+connecting the words.
+
+A ''word ladder'' is a sequence of ''doublets''.
+
+A ''doublet'' is a pair of words that differ in exactly one letter; for example, "booster"
+and "rooster" or "rooster" and "roaster" or "roaster" and "roasted".
+
+Your program will be given three arguments.
+
+The first argument will be the name of a  file containing  lowercase words (only the characters [a-z]), one per line.
+
+The second and third arguments will be two words of equal length.
+
+Both words will occur in the  file.
+
+Your program should then print the shortest word ladder connecting the first word to the second,
+such that all words are found in the file.
+
+If no word ladder exists your program should print the message "No solution.";
+
+If several word ladders of the same length exists it may print any one of them.
+
+You have been given a file named `words.txt` containing about 30000 words.
+
+Your program must be able to find the shortest word ladder 
+in under 60 seconds for  `words.txt`.
+
+You have also been given a very short file of words, `words.tiny.txt`, for testing.
+You may it useful to other such small files of words for debugging.
+ 
+For example, if your program was named `a.out`, this is how it should behave:
+
+{{{
+$ cat words.tiny.txt
+booster
+rooster
+roaster
+coasted
+roasted
+coastal
+posting
+$ a.out words.tiny.txt booster roasted
+booster
+rooster
+roaster
+roasted
+$ a.out words.tiny.txt coastal posting
+No solution.
+$ a.out words.txt ape man
+ape
+apt
+opt
+oat
+mat
+man
+$ a.out words.txt live dead
+live
+love
+lore
+lord
+load
+lead
+dead
+$ a.out words.txt shell files
+shell
+shall
+shale
+shame
+shams
+seams
+seals
+sells
+sills
+fills
+files
+$ a.out words.txt shell aloof 
+No solution.
+}}}
+
+Q17 PM Question
+
+A word is an anagram of another word if it contains exactly the same letters.
+
+For example, ''danger'' is an anagram of  ''garden''.
+
+Note anagrams must be exactly the same length.
+
+Anagrams must contain exactly the same letters occuring the same number of time
+
+For example: ''reset'' is not an anagram of ''rests''.
+
+An anagram group is a group of words which are all anagrams of each other.
+
+Your program will be given as input lowercase words (only the characters [a-z]), one per line.
+
+Its should print all the  anagram groups in these words.
+
+For each anagram group you should print a single line.
+
+The line should start with the number of words in the anagram group, then
+the words in each anagram group should be printed in alphabetic order, space-separated.
+
+The anagram groups should be printed in descending order of size (the number of words in the group).
+
+Anagram groups of the same size they should be ordered alphabetically (on the words they contain as a string).
+
+Note anagram groups which are subset of a larger anagram group are not printed.  You only print maximal groups.
+
+Match the output in the examples below exactly.
+
+You have been given 3 test data files containing words: `words.small.txt`, `words.txt` and `words.huge.txt`.
+
+They contain respectively 16, 73, 38634 & 245645 words.
+
+Your program must print all anagram groups in under 30 seconds for  `words.huge.txt`.
+
+Make your program behave '''exactly''' as indicated by the examples
+below.
+
+For example, if your program was named `a.out`, this is how it should behave:
+
+{{{
+$ a.out <words.tiny.txt 
+5 caret carte cater crate trace
+4 abet bate beat beta
+4 ate eat eta tea
+1 displayed
+1 singleton
+1 undisplayed
+$ a.out <words.small.txt 
+7 pares parse pears rapes reaps spare spear
+6 caret cater crate react recta trace
+5 bares baser bears braes saber
+5 lapse leaps pales peals pleas
+5 least slate stale steal tales
+5 mates meats steam tames teams
+4 abets baste beast beats
+4 abler baler blare blear
+4 acres cares races scare
+4 arced cared cedar raced
+3 adder dared dread
+3 agers gears rages
+3 aimed amide media
+3 alert alter later
+2 abode adobe
+2 abuse beaus
+2 aches chase
+2 adept taped
+1 aback
+1 abaft
+1 abase
+1 abash
+$ a.out <words.txt | head
+7 pares parse pears rapes reaps spare spear
+6 caret cater crate react recta trace
+6 caster caters crates reacts recast traces
+6 opts post pots spot stop tops
+5 alerting altering integral relating triangle
+5 arrest rarest raster raters starer
+5 bares baser bears braes saber
+5 drapes parsed rasped spared spread
+5 drawer redraw reward warder warred
+5 east eats sate seat teas
+$  <words.huge.txt | head
+12 alerts alters artels lastre rastle ratels salter slater staler stelar talers tarsel
+12 apers asper pares parse pears prase presa rapes reaps spaer spare spear
+12 least leats salet setal slate stale steal stela taels tales teals tesla
+11 arets aster rates reast resat stare stear strae tares tears teras
+11 palest palets pastel peltas petals plaste plates pleats septal staple tepals
+10 angriest astringe ganister gantries granites gratines ingrates rangiest reasting stearing
+10 antsier nastier ratines resiant retains retinas retsina stainer starnie stearin
+9 abets baste bates beast beats besat betas esbat tabes
+9 acers acres cares carse escar races scare scrae serac
+9 aridest asterid astride diaster disrate staider staired tardies tirades
+}}}

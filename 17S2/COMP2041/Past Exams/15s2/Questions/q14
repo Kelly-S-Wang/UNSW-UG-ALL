@@ -1,0 +1,69 @@
+Question 14_am - 11 Marks
+
+Write a program that reads lines of text from its standard input
+and if a line contains two or more integers it swaps the first and second integer.
+
+If a line contains less than two integers it should be printed unchanged.
+
+If a line contains more than two integers only the first and second integer should be changed.
+
+Lines may contain any number of any integers and they may contain any
+number of any character between the integers.
+
+{{{
+$ cat swap_numbers.txt
+And the first 24 shall become 42 last
+1 is the loneliest number
+Some lines have no numbers
+somelines23have43numbers567butnospaces
+Powers of 10 are: 1 10 100 1000 
+The answer is 42.
+6 * 7 = 42
+$ a.out <swap_numbers.txt
+And the first 42 shall become 24 last
+1 is the loneliest number
+Some lines have no numbers
+somelines43have23numbers567butnospaces
+Powers of 1 are: 10 10 100 1000 
+The answer is 42.
+7 * 6 = 42
+}}}
+
+You should treat all sequences of digits as positive integers. You do not need to consider
+negative integers, floating point numbers, exponential or scientific notation.
+
+
+
+
+Marking Scheme
+
+single subtle bug                          9.0/10
+single non-trivial bug  8+ tests passed    8.0/10
+
++2 extract first number on line
++2 extract second number on line
++2 replace first number with second
++2 replace second number with first
+
+warnings - no penalty
+white space wrong - no penalty
+
+
+Question 14_am Tests
+
+cat /home/cs2041/15s2.work/exam_q14_am/tests/tests.txt
+1	3	./q14	diff	-as	sed 's/ *$//'	q14
+2	3	./q14	diff	-as	sed 's/ *$//'	q14
+3	3	./q14	diff	-as	sed 's/ *$//'	q14
+4	3	./q14	diff	-as	sed 's/ *$//'	q14
+5	3	./q14	diff	-as	sed 's/ *$//'	q14
+6	3	./q14	diff	-as	sed 's/ *$//'	q14
+7	3	./q14	diff	-as	sed 's/ *$//'	q14
+8	3	./q14	diff	-as	sed 's/ *$//'	q14
+9	3	./q14	diff	-as	sed 's/ *$//'	q14
+10	3	./q14	diff	-as	sed 's/ *$//'	q14
+12	3	./q14	diff	-as	sed 's/ *$//'	q14
+13	3	./q14	diff	-as	sed 's/ *$//'	q14
+14	3	./q14	diff	-as	sed 's/ *$//'	q14
+15	3	./q14	diff	-as	sed 's/ *$//'	q14
+

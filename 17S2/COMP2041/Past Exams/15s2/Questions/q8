@@ -1,0 +1,79 @@
+Question 8_am - 2 Marks
+
+The next 3 questions ask you to write shell pipelines
+which take as input student enrollment data in this familiar format:
+
+{{{
+COMP1917|3360379|Costner, Kevin Augustus          |3978/1|M
+COMP1917|3364562|Carey, Mary                      |3711/1|M
+COMP3311|3383025|Thorpe, Ian Augustus             |3978/3|M
+COMP2920|3860448|Steenburgen, Mary Nell           |3978/3|F
+COMP1927|3360582|Neeson, Liam                     |3711/2|M
+COMP3411|3863711|Klum, Heidi June Anne            |3978/3|F
+COMP3141|3383025|Thorpe, Ian Augustus             |3978/3|M
+COMP3891|3863711|Klum, Heidi June Anne            |3978/3|F
+COMP3331|3383025|Thorpe, Ian Augustus             |3978/3|M
+COMP2041|3860448|Steenburgen, Mary Nell           |3978/3|F
+COMP2041|3360582|Neeson, Liam                     |3711/2|M
+COMP3311|3711611|Klum, Mary                       |3978/3|F
+COMP3311|3371161|Thorpe, Ian Fredrick             |3711/3|M
+COMP3331|5122456|Wang, Wei                        |3978/2|M
+COMP3331|5456732|Wang, Wei                        |3648/3|M
+COMP4920|5456732|Wang, Wei                        |3648/3|M
+}}}
+
+Note the input is unordered i.e. not sorted in anyway.
+
+You should find a copy of the above data in the file `enrollments.txt`
+in the exam environment, if you wish to test your pipelines.
+
+Write a shell pipeline that given student enrollment data in the above format
+outputs the number of course enrollments by students in the program 3711.
+
+Note the second last field indicates the students program and stage.
+
+Note if a 3711 student is enrolled in multiple courses,
+each is counted.
+
+Only the number of course enrollment by 3711 students should be printed.
+
+For example, given the above input your
+pipeline should output this:
+
+{{{
+4
+}}}
+
+You may print extra white space before or after the number.
+
+Your answer must be a shell pipeline. You may not use `while`, `for` or other loops.
+You may not use Perl or Python.  You may use the usual Unix filters.
+
+__________
+__________
+__________
+__________
+__________
+__________
+
+
+
+
+Sample Answer:
+
+grep '|3711/'|wc -l
+
+Marking Scheme
+
+1.0/2.0  grep '|3711/$'        (or equivalent)
+1.0/2.0  grep '3711' | wc -l   (or equivalent)
+1.5/2.0  grep '|3711/$'| wc    (or equivalent)
+
+Question 8_am Tests
+
+cat /home/cs2041/15s2.work/exam_q8_am/tests/tests.txt
+0	5	cp  test0 enrollments.txt; sh ./q8.sh   	diff -iBw	-as		enrollments0.txt
+1	10	cp  test1 enrollments.txt; sh ./q8.sh  	diff -iBw	-as		enrollments1.txt
+2	10	cp  test2 enrollments.txt; sh ./q8.sh  	diff -iBw	-as		enrollments2.txt
+3	5	egrep 'perl|python|while|for' q8.sh  	diff -iBw	-as		language check
+

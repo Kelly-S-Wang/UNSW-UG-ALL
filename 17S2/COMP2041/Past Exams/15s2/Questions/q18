@@ -1,0 +1,186 @@
+The text of the questions are appended.p
+
+They should be respectively available for marking by running
+/home/cs2041/bin/classrun -mark  
+and selecting exam_q16_am or exam_q16_pm   + all
+
+Each question is worth 10 marks.  
+I need a brief summary of any refinements/changes you make to the marking
+scheme in case students ask to review  their marking.
+
+You don't have to do anything other than award a mark out of 10.
+No need to indicate the reason for the mark.
+But unusual cases you can leave and ask me to  take a look.
+
+The auto marking tests are in these directories
+Hopefully you can decode the format (start with tests.txt)
+
+/home/cs2041/15s2.work/exam_q16_am/tests
+/home/cs2041/15s2.work/exam_q16_pm/tests
+
+You'll need to refine a marking scheme for both
+
+I'd suggest starting with:
+
+Marking Scheme for AM
+
+no penalty for warnings
+white space wrong - no penalty              10/10
+single subtle bug       1-2 failed           9/10
+single non-trivial bug                       8/10 (include string match for numebr)
+multiple lines not handled (=6 failed)       7/10
+
+Marking Scheme for PM
+
+no penalty for warnings
+don't handle non-alpha characters in string    9/10
+one tested failed                              9/10
+minor error                                    8/10
+4 tests failed                                 7/10
+major error                                    6/10
+extract start & finish +2.5
+print correct number of strings +2.5
+handle prefix postfix +2.5
+
+You can (should) award intermediate marks.  
+
+No marks/penalty for style & comments.
+
+Note as both questions ask for a file to be changed
+this simple script
+/home/cs2041/public_html/15s2/scripts/show_file_changes
+show the file after the students program is run.
+
+Occasionally you may want to edit an answer and rerun
+the tests, and you should be able to via tears:
+
+% /home/give/stable/bin/tears cs2041 exam_q16_am all 3404196
+% /home/give/stable/bin/tears cs2041 exam_q16_pm all 3404196
+
+then inside tears editing the submission (not the top level file),e.g.:
+
+vi .submissions/q16.final.pl
+
+Then inside tears this scripts should rerun the tests:
+/home/cs2041/public_html/15s2/scripts/automark_student
+
+Keep me up to date with how you are going.
+
+Andrew (0425239255)
+
+Q16 AM Question
+
+Write a program that reads positive integers from standard input.
+Your program will receive the integers from ''n'' to ''m'' with one integer missing.
+The integers will not be ordered.
+It should print the missing number.
+
+Your program will receive exactly ''n'' - ''m'' integers.  The missing integer will not be
+''n'' or ''m''.  No integer will occur twice.  Only one integer will be missing.
+
+Your program's input will only contain digits and white space.
+Any amount of whitespace may precede or follow integers.
+
+Multiple integers may occur on the same line.
+A line may contain no integers.
+You can assume all the integers are positive.
+
+For example given this input:
+
+{{{
+
+39 45 40 44 41 43
+ 
+}}}
+
+It should produce this output:
+
+{{{
+
+42
+ 
+}}}
+
+And given this input:
+
+{{{
+
+6 8 9 1
+  7   2
+
+3 10 11 12
+5
+
+}}}
+
+It should produce this output:
+
+{{{
+
+4
+ 
+}}}
+
+And given this input:
+
+{{{
+
+  1006 1004 
+1003 1007
+ 1008 1009
+ 
+}}}
+
+It should produce this output:
+
+{{{
+
+1005
+
+}}}
+
+Q16 PM Question
+
+Write a program which takes 2 arguments, each of which contains a single positive integer
+(``n``) as a substring.  The second argument will be identical to the first argument
+except it may contain a different integer (``m``)   
+
+Your program should print the strings, one per line, forming the
+integer sequence ``n``..``m``.
+
+You can assume the second integer is not smaller then the first (``n`` >= ``m``).
+
+You do not have to do any error checking.  You can assume your program
+will be given 2 arguments which meet the specifications above.
+
+Make your program behave '''exactly''' as indicated by the examples
+below.
+
+It must produce '''exactly''' the same output as below.
+
+For example, if your program is named `a.out` here is how it should behave :
+
+{{{
+$ a.out aaa723bbb aaa727bbb
+aaa723bbb
+aaa724bbb
+aaa725bbb
+aaa726bbb
+aaa727bbb
+$ a.out bell11 bell15
+bell11
+bell12
+bell13
+bell14
+bell15
+$ a.out 6th 9th
+6th
+7th
+8th
+9th
+$ a.out 13 14
+13
+14
+$ a.out ans42er ans42er
+ans42er
+}}}

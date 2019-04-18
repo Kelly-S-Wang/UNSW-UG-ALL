@@ -1,0 +1,206 @@
+Thanks Genevieve for agreeing to do this.
+
+Its q17 (part 3) from the morning & afternoon sessions
+
+The text of the questions are appended.p
+
+They should be respectively available for marking by running
+/home/cs2041/bin/classrun -mark  
+and selecting exam_q17_am or exam_q17_pm   + all
+
+Each question is worth 10 marks.  I've appended a basic marking
+scheme.  You can refine/change it for example adding
+intermediate marks (fractional marks are fine) or adding
+cases but (obviously) all answers must be marked consistentally.
+
+I need a brief summary of any refinements/changes you make to the marking
+scheme in case students ask to review  their marking.
+
+You don't have to do anything other than award a mark out of 10.
+No need to indicate the reason for the mark.
+But unusual cases you can leave and ask me to  take a look.
+
+The auto marking tests are in these directories
+Hopefully you can decode the format (start with tests.txt)
+
+/home/cs2041/15s2.work/exam_q17_am/tests
+  Tests 1-7 were ones they were given (no test 4&5)
+  Tests 8-11 they hadn't seen
+/home/cs2041/15s2.work/exam_q17_pm/tests
+  PM Tests 1-6 were ones they were givem
+  PM Tests 7,8 they hadn't seen
+
+Marking Scheme for Both Sessions
+
+Passes all tests                                                 10/10
+ - no penalty for perl warnings if the output is correct
+
+
+minor error in regexp passes 3+ tests                             8/10
+ - most common examples of this category are using [a-zA-Z0-9_\.] or similar i.e. not handling punctuation as part of an address
+ 
+whitespace obviously wrong                                      7.5/10
+ - includes people who added random spaces or newlines in their output
+ - same for solutions that strip all whitespace i.e. result is all on one line
+ - or don't handle the last email on a line if it's not followed by a space
+ 
+major error in regexp passes ? tests                              7/10
+ - must pass at least one test
+ - common examples of this category include blah@blah translating to example.com@blah
+
+outputs correctly changed text to stdout (doesn't change file)    5/10
+ -  be lenienet e.g  accept commented out print statement to stdout or something similar
+
+rewrites file                                                     4/10
+ - rewriting must be reasonable, i.e. if they had a decent regex in theory it might have worked
+ - examples that do not get marks: reopening the file on every iteration of a loop, opening the file in read only mode, any solution that does not actually write to the file,
+
+
+outputs correctly changed text to stdout + minor regex error      4/10
+outputs correctly changed text to stdout + whitespace problems      3.5/10
+outputs correctly changed text to stdout + major regex error      3/10
+outputs changed text to stdout + major error in regexp + whitespace problems                            2/10
+
+Other deductions:
+ - Correct except writes the output to a randomly named file (typically 'temp.txt' or something similar.) I suspect some of these are misread questions (reading "You may choose to create a temporary file in the current directory." as their output can be in that file) Required that code works with the only change being substituting the filename: -1
+ - Correct except they have no idea how to use ARGV (i.e. expecting input from stdin or hardcoded 'addresses.txt'): -2
+
+
+You can (should) award intermediate marks.  
+
+No marks/penalty for style & comments.
+
+Note as both questions ask for a file to be changed
+this simple script
+/home/cs2041/public_html/15s2/scripts/show_file_changes
+show the file after the students program is run.
+
+Occasionally you may want to edit an answer and rerun
+the tests, and you should be able to via tears:
+
+% /home/give/stable/bin/tears cs2041 exam_q17_am all 3404196
+% /home/give/stable/bin/tears cs2041 exam_q17_pm all 3404196
+
+then inside tears editing the submission (not the top level file),e.g.:
+
+vi .submissions/q17.final.pl
+
+Then inside tears this scripts should rerun the tests:
+/home/cs2041/public_html/15s2/scripts/automark_student
+
+Keep me up to date with how you are going.
+
+Andrew (0425239255)
+
+Q17 AM Question
+
+Your task is to write a program which changes a file to hide the
+the e-mail addresses in the file.
+
+Your program will be given exactly one command-line argument,
+the name of the file to be processed.
+
+Your program is given no input and should produce '''no output'''.
+It should only change the specified file.
+
+You should assume any sequence of non-whitespace characters
+containing an @ character is an e-mail address.
+
+The user name part of the e-mail address (before the @) should be left unchanged.
+
+The domain name of the e-mail address (after the @) should be changed to the
+fictitious domain "example.com".
+
+So if the address "cs2041@cse.unsw.edu.au" occurs in the file
+it should be changed to "cs2041@example.com".
+
+You can assume that space (' ') and newline ('\n') are the only
+white-space characters that occur in  the file.
+
+You can assume sequences of non-whitespace characters never contain more than one '@' character
+and that an '@' character is always preceded and followed by at least one non-whitespace character.
+
+You may choose to create a temporary file in the current directory.
+
+Your solution must be a single program.
+
+For example, if your program was named `a.out`, and the file 
+`addresses.txt` has these contents:
+
+{{{
+Andrew's e-mail address is andrewt@cse.unsw.edu.au
+The pope has e-mail:         benedictxvi@vatican.va                   
+Two famous addresses are billg@microsoft.com & sjobs@apple.com
+You program should also treat examples such
+as these as e-mail addresses:
+a@b   12345@6789  hello@....
+}}}
+
+Then after running this command:
+
+{{{
+% a.out addresses.txt
+}}}
+
+File `addresses.txt` should have these contents:
+
+{{{
+Andrew's e-mail address is andrewt@example.com
+The pope has e-mail: benedictxvi@example.com                   
+Two famous addresses are billg@example.com & sjobs@example.com
+You program should also treat examples such
+as these as e-mail addresses:
+a@example.com  12345@example.com  hello@example.com
+}}}
+
+Q17 PM Question
+
+
+Your task is to write a program which changes a file to change the
+the words in the file.
+
+Your program will be given exactly one command-line argument,
+the name of the file to be processed.
+
+Your program is given no input and should produce no output.
+It should only change the specified file.
+
+
+Your program should replace replace
+the letters in the middle of words with a single dash ('-').
+
+Words containing less than three letters are not changed.
+
+So for each word containing 3 or more letters, the first and last letter
+are not changed but all the  letters in between are replaced by a single dash.
+
+Assume a word is a sequence only of
+lower case and upper case alphabetic letters [a-zA-Z].
+
+For example, if your program was named `a.out`, and the file 
+`data.txt` has these contents:
+
+{{{
+I love Perl programming in COMP2041
+One *two*   three!   I?  we??
+Lewis Roberts-Thompson plays for the Swans.
+This is some boring text.  And some more.
+A little foolish perhaps?  Yes, definitely.
+}}}
+
+Then after running this command:
+
+{{{
+% a.out data.txt
+}}}
+
+File `data.txt` should have these contents:
+
+
+{{{
+I l-e P-l p-g in C-P2041
+O-e *t-o*   t-e!   I?  we??
+L-s R-s-T-n p-s f-r t-e S-s.
+T-s is s-e b-g t-t.  A-d s-e m-e.
+A l-e f-h p-s?  Y-s, d-y.
+}}}

@@ -1,0 +1,315 @@
+===== 15s2 Solutions =====
+
+=== Q2 ===
+This shell is executed:
+
+{{{
+grep -v '[0-9].*[0-9]' numbers
+}}}
+
+The file `numbers` contains these 5 lines:
+
+{{{
+7even
+42
+l33t
+1.7e8
+end
+}}}
+
+
+output is:
+7even
+end
+
+because the output of grep -v will be everything except the regex match
+
+=== Q3 ===
+These shell statements are executed:
+
+{{{
+cat numbers|sed 's/[a-z].*[a-z]//g'
+}}}
+
+The file `numbers` contains these 4 lines:
+
+{{{
+2nd 3rd
+4th 5th 6th
+7th 8th 9th 10th
+11th
+}}}
+
+ouptut is:
+2
+4
+7
+11
+
+because letter, characters and letter in a line is replaced with nothing globally
+
+=== Q4 ===
+
+This Perl code is executed:
+
+{{{
+@n = (1,3,5,7,9);
+$a = @n;
+$b = $#n;
+$c = $n[$b];
+print '$a @n\n';
+print "@n\n";
+print "$a $b $c\n";
+}}}
+
+The Perl executes without errors or warnings. What output does it produce?
+$a @n\n1 3 5 7 9
+5 4 9
+
+because
+@n = (1,3,5,7,9);
+$a = @n;            # VARIABLE = ARRAY (printing this will produce num of elements)
+$b = $#n;           # $#n = 4- INDEX OF LAST ELEMENT, $#n + 1 is the number of elements
+$c = $n[$b];        # CONTENTS OF $n[4] = 9
+print '$a @n\n';    # SINGLE QUOTES - prints string as it is
+print "@n\n";       # DOUBLE QUOTES - data is evaluated on the spot
+print "$a $b $c\n"; # PRINT NUMBER OF ELEMENTS, INDEX OF LAST ELEMENT, VALUE OF LAST ELEMENT
+
+=== Q5 ===
+Give 3 git commands and briefly describe what each does?
+git add file.pl         - adds file.pl to git repository so git will keep track of different versions of file
+git commit -a -m "add"  - save versions of files that have been added
+git push                - update repository with the commits
+
+Where is a git repository by default stored on Linux (be precise)?
+stored in the current directory of where the folder is.
+
+=== Q6 === ??????????????????????????
+?? the input param is retarded
+?? no or die part
+No or die part
+could easily make the username something else o access a path
+
+
+This code is part of a Perl CGI script:
+
+{{{
+    $username = param('username');
+    if (open F, "/usr/data/$username") {
+    	@user_details = <F>;
+    	close(F);
+    }
+}}}
+
+It contains 2 obvious security holes.
+
+One security hole results from a Perl feature that is convenient for programmers
+it would not occur equivalent code in a CGI script written in Python, C or shell.
+Give an example of input that exploits this security hole.
+
+__________
+__________
+__________
+__________
+__________
+
+Another security hole is not specific to Perl and would also occur in
+equivalent code in a CGI script written in Python, C or shell.
+
+Give an example of input that exploits this security hole.
+
+__________
+__________
+__________
+__________
+__________
+
+Give Perl statements which could be added to the above code to eliminate both security holes.
+
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+
+
+=== Q7 ===
+
+=== Q8 ===
+{{{
+COMP1917|3360379|Costner, Kevin Augustus          |3978/1|M
+COMP1917|3364562|Carey, Mary                      |3711/1|M
+COMP3311|3383025|Thorpe, Ian Augustus             |3978/3|M
+COMP2920|3860448|Steenburgen, Mary Nell           |3978/3|F
+COMP1927|3360582|Neeson, Liam                     |3711/2|M
+COMP3411|3863711|Klum, Heidi June Anne            |3978/3|F
+COMP3141|3383025|Thorpe, Ian Augustus             |3978/3|M
+COMP3891|3863711|Klum, Heidi June Anne            |3978/3|F
+COMP3331|3383025|Thorpe, Ian Augustus             |3978/3|M
+COMP2041|3860448|Steenburgen, Mary Nell           |3978/3|F
+COMP2041|3360582|Neeson, Liam                     |3711/2|M
+COMP3311|3711611|Klum, Mary                       |3978/3|F
+COMP3311|3371161|Thorpe, Ian Fredrick             |3711/3|M
+COMP3331|5122456|Wang, Wei                        |3978/2|M
+COMP3331|5456732|Wang, Wei                        |3648/3|M
+COMP4920|5456732|Wang, Wei                        |3648/3|M
+}}}
+
+Note the input is unordered i.e. not sorted in anyway.
+
+You should find a copy of the above data in the file `enrollments.txt`
+in the exam environment, if you wish to test your pipelines.
+
+Write a shell pipeline that given student enrollment data in the above format
+outputs the number of course enrollments by students in the program 3711.
+
+Note the second last field indicates the students program and stage.
+
+Note if a 3711 student is enrolled in multiple courses,
+each is counted.
+
+Only the number of course enrollment by 3711 students should be printed.
+
+For example, given the above input your
+pipeline should output this:
+
+{{{
+4
+}}}
+
+You may print extra white space before or after the number.
+
+Your answer must be a shell pipeline. You may not use `while`, `for` or other loops.
+You may not use Perl or Python.  You may use the usual Unix filters.
+
+egrep '[^0-9]3711[^0-9]' enrollments.txt|wc -l
+
+=== Q9 ===
+Write a shell pipeline that given student enrollment data in the above format
+outputs the student number of all students enrolled in exactly two courses.
+
+The student numbers should be printed one per line and each student's  number
+should be printed once.  The student numbers should be printed in sorted order.
+
+For example, given the above input your
+pipeline should output this:
+
+{{{
+3360582
+3860448
+3863711
+5456732
+}}}
+
+Your answer must be a shell pipeline. You may not use `while`, `for` or other loops.
+You may not use Perl or Python.  You may use the usual Unix filters.
+
+cut -d'|' -f2 enrollments.txt|sort|uniq -c|egrep '\s[2]\s'| cut -d' ' -f8
+
+=== Q10 ===
+
+Write a shell pipeline that given student enrollment data in the above format
+outputs the middle names of all students.
+
+Each sequence of middle names should be printed on a separate line and  printed only once, no matter
+how many students have these middle names or how many courses they are enrolled in.
+
+Only the middle names should be printed.
+
+The middle names should be printed in sorted order.
+
+For example, given the above input your
+pipeline should output this:
+
+{{{
+Augustus
+Fredrick
+June Anne
+Nell
+}}}
+
+Your answer must be a shell pipeline. You may not use `while`, `for` or other loops.
+You may not use Perl or Python.  You may use the usual Unix filters.
+
+cut -d'|' -f3 enrollments.txt|cut -d' ' -f2-4|egrep '.+\s[A-Za-z]+'|cut -d' ' -f2-3|sort|uniq
+
+=== Q11 ===
+This Perl code tests whether an integer is prime.  Translate it to Python.
+
+The Perl is correct and will execute without errors or warnings.
+
+A copy of this Perl should be present in your directory in a file named `isprime.pl`
+
+You can assume your Python script is given one positive integer as an argument.
+
+Your Python script is not  permitted to use any external programs.  You are not permitted
+to use Perl or Shell.
+
+{{{
+$n = $ARGV[0];
+$i = 2;
+while ($i < $n) {
+    if ($n % $i == 0) {
+        print "$n is composite\n";
+        exit 0;
+    }
+    $i++;
+}
+print "$n is prime\n";
+}}}
+
+import sys
+n = int(sys.argv[1])
+i = 2
+while (i<n):
+	if (n%i == 0):
+		print str(n)+" is composite"
+		sys.exit()
+	i+=1
+print str(n)+" is prime"
+
+=== Q12 ===
+{{{
+$n = $ARGV[0];
+$i = 2;
+while ($i < $n) {
+    if ($n % $i == 0) {
+        print "$n is composite\n";
+        exit 0;
+    }
+    $i++;
+}
+print "$n is prime\n";
+}}}
+
+Translate the Perl in the previous question (isprime.pl) to Shell.
+
+Your script is not  permitted to use any external programs other
+than `test`, `expr` and `sed`.  You are not permitted
+to use Python or Perl.
+
+You are permitted to use shell builtins including `echo` & `exit`.
+
+You can assume your Shell script is given a positive integer as argument.
+
+
+
+=== Q13 ===
+
+=== Q14 ===
+
+
+=== Q15 ===
+
+=== Q16 ===
+
+=== Q17 ===
+
+=== Q18 ===
+
+=== Q19 ===

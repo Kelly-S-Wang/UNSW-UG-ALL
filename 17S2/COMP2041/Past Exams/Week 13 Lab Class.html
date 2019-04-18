@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)http://cgi.cse.unsw.edu.au/~cs2041cgi/16s2/answers.py?lab/week13.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Week 13 Lab Class</title>
+<link href="./Week 13 Lab Class_files/2041.css" rel="stylesheet">
+</head>
+<body data-shoptagr-mini="yes">
+<div class="container">
+<div id="heading"><a class="heading_link" target="_blank" id="left_heading_link" href="http://www.cse.unsw.edu.au/~cs2041/16s2/">COMP[29]041 16s2</a>
+Practice Prac exam
+<a class="heading_link" target="_blank" id="right_heading_link" href="http://www.cse.unsw.edu.au/~cs2041/16s2/">Software Construction</a></div>
+<div class="tutlab lab">
+<h3>Aims</h3>
+This exercise aims to give you practice in:
+<ul>
+<li> doing the kinds of questions that appear on the COMP2041 Prac Exam
+</li><li> experiencing the pressures of solving problems without
+prior preparation and within a time limit.
+</li></ul>
+Your goal is to complete several small programming exercises.
+<p>
+The assessable part of the lab will be conducted under exam-style conditions,
+which means you can't communicate with other students
+and the tutor can only clarify requirements,
+fix any setup problems, and confirm the tests.
+They will not help you solve the tasks.
+</p><p>
+You will use the same exam environment as the final exam and
+submit your work within the exam environment during the lab.
+</p><p>
+Your tutor will determine your lab mark for this week based
+on what you submit from the exam environment during the lab.
+</p><p>
+Your tutor will setup the exam environment, provide the exam questions
+and explain more.
+
+</p><div class="answer">
+<h3>Practice Exam: Version 1</h3>
+<ol>
+<h3>Part 1</h3>
+<li>
+
+These shell statements are executed:
+<p>
+</p><pre>cat numbers|sed 's/[a-z].*[a-z]//g'|sort
+</pre>
+<p></p><p>
+The file <b>numbers</b> contains these 4 lines:
+</p><p>
+</p><pre>2nd 3rd
+4th 5th 6th
+7th 8th 9th 10th
+11th
+</pre>
+<p></p><p>
+The shell statements execute without errors or warnings. Exactly what output does it produce?
+</p><p>
+Note: the file <b>numbers</b> contains only 4 lines.  It contains no blank lines and no leading or trailing white space.
+</p><p>
+</p><div class="answer">
+<pre>11
+2
+4
+7
+</pre>
+</div>
+<p></p></li>
+<h3>Part 2</h3>
+<li>
+
+We have student enrolment data in this familiar format:
+<p>
+</p><pre>COMP1011|3360379|Costner, Kevin                   |3978/1|M
+COMP1011|3360582|Neeson, Liam                     |3711/1|M
+COMP2920|3860538|Spears, Brittney                 |3978/3|F
+COMP1021|3360582|Neeson, Liam                     |3711/1|M
+COMP3411|3860538|Klum, Heidi                      |3978/3|F
+COMP3141|3383025|Thorpe, Ian                      |3978/3|M
+COMP3891|3860544|Klum, Heidi                      |3978/3|F
+....
+</pre>
+<p></p><p>
+Write a shell pipeline that given input in this format
+outputs the student numbers of
+all female students.
+</p><p>
+The student numbers should be printed one per line and each student number should
+be printed once.  Only the student numbers should be printed.
+</p><p>
+For example, given the above input your
+pipeline should output this:
+</p><p>
+</p><pre>3860538
+3860544
+</pre>
+<p></p><p>
+Your answer must be a shell pipeline. You may not use <b>while</b>, <b>for</b> or other loops.
+You may not use perl or python.  You may use the usual Unix filters.
+</p><p>
+</p><div class="answer">
+<pre>grep 'F$'|cut -d\| -f2|sort|uniq</pre>
+</div>
+<p></p></li>
+<h3>Part 3</h3>
+<li>
+
+Write a program which takes 0 or more arguments and prints some of
+those arguments.
+<p>
+The first occurrence and only the first occurrence of any argument should be printed.
+</p><p>
+The argument should be printed on a single line.  A single space should separate
+each argument.
+</p><p>
+Make your program behave <b>exactly</b> as indicated by the examples
+below.
+</p><p>
+It must produce <b>exactly</b> the same output as below,
+except you may print an extra space at the end of the line if you wish.
+</p><p>
+For example, if you program is named <code>a.out</code> here is how it should behave :
+</p><p>
+</p><pre>% a.out
+% a.out bird
+bird
+% a.out bird cow fish
+bird cow fish
+% a.out echo echo echo
+echo
+% a.out bird cow fish bird cow fish bird
+bird cow fish
+% a.out how much wood would a woodchuck chuck
+how much wood would a woodchuck chuck
+% a.out
+% a.out a a a a b a
+a b
+% a.out a b c d c b a
+a b c d
+% a.out d c b d c a a d
+d c b a
+</pre>
+<p></p><p>
+</p><div class="answer">
+Sample Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+foreach $arg (@ARGV) {
+    next if $seen{$arg};
+    print "$arg ";
+    $seen{$arg} = 1;
+}
+print "\n";
+</pre>
+
+One line Perl solution
+
+
+<pre class="program">#!/usr/bin/perl
+print join(" ",grep(!$seen{$_}++, @ARGV)), "\n";
+</pre>
+</div>
+<p></p></li><li>
+
+Write a program that copies its standard input to standard output
+but maps all numbers to their nearest whole number equivalent.
+For example, <b>0.667</b> would be mapped to <b>1</b>,
+<b>99.5</b> would be mapped to <b>100</b>, <b>16.35</b> would be
+mapped to <b>16</b>, and so on.
+All other text in the input should be transferred to the output
+unchanged.
+<p>
+A <i>number</i> is defined as a string containing
+some digit characters optionally  with a decimal point (<b>'.'</b>)
+followed by one or more  digit characters.
+You can assume numbers to do not have extra leading zeros.
+</p><p>
+For example <b>0</b>, <b>100</b>, <b>3.14159</b>, <b>1000.0</b>,
+<b>0.999</b> and <b>12345.6789</b> are all valid numbers.
+</p><p>
+For example <b>007</b>, <b>1.2.3.4</b>, <b>3.</b>, are not valid numbers.
+</p><p>
+For example, given this input:
+</p><p>
+</p><pre>I spent $15.50 for 3.3kg of apples yesterday.
+Pi is approximately 3.14159265358979
+2000 is a leap year, 2001 is not.
+</pre>
+<p></p><p>
+your program should produce this output:
+</p><p>
+</p><pre>I spent $16 for 3kg of apples yesterday.
+Pi is approximately 3
+2000 is a leap year, 2001 is not.
+</pre>
+<p></p><p>
+</p><div class="answer">
+Sample Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+
+while ($line = &lt;&gt;) {
+    my @numbers = $line =~ /(\d+\.\d+)/g;
+    foreach $number (@numbers) {
+        my $rounded_number = int($number + 0.5);
+        $line =~ s/$number/$rounded_number/;
+    }
+    print $line;
+}
+</pre>
+
+Concise Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+while (&lt;&gt;) {
+    s/(\d+\.\d+)/int($&amp;+0.5)/eg;
+    print;
+}
+</pre>
+
+Different Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+
+while ($line = &lt;&gt;) {
+    while ($line =~ /(\d+\.\d+)/) {
+        my $number = $1;
+        $number =~ /^(\d+)/;
+        my $rounded_number = $1;
+        if ($number =~ /\.[5-9]/) {
+            $rounded_number++;
+        }
+        $line =~ s/$number/$rounded_number/;
+    }
+    print $line;
+}
+</pre>
+</div>
+<p></p></li><li>
+ 
+Write a program that reads lines of text from its standard input
+and prints them to its standard output.
+Except for lines which contain with a '#' character followed by a positive integer.
+<p>
+Lines of the form #n (where n is an
+integer value), should be replaced this by the n'th line of input.
+</p><p>
+This transformation only applies to lines which start with a '#' character, followed by the digits of a positive integer
+and then the newline character.  No other characters appear on such lines.
+</p><p>
+</p><p>
+You may assume that:
+lines are numbered starting from 1,
+there are no more than 100 lines in the input,
+no line is more than 80 characters long,
+all n values are valid input line numbers,
+and
+no n values refer to other #n lines.
+</p><p>
+</p><center>
+<table>
+<tbody><tr><th>Sample Input Data</th><th>Corresponding Output
+</th></tr><tr><td>
+<pre>line A
+line B
+line C
+#2
+line D
+#7
+line E
+</pre>
+</td>
+<td>
+<pre>line A
+line B
+line C
+line B
+line D
+line E
+line E
+</pre>
+</td>
+</tr></tbody></table>
+</center>
+<div class="answer">
+Sample Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+@a = &lt;STDIN&gt;;
+foreach $i (0..$#a) {
+    if ($a[$i] =~ /^#(\d+)/) {
+        $a[$i] = $a[$1 - 1];
+    }
+}
+print @a;
+</pre>
+
+Terse Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+@a = &lt;STDIN&gt;;
+/^#(\d+)/ and $_ = $a[$1 - 1] foreach @a;
+print @a;
+</pre>
+</div>
+<p></p></li></ol>
+<hr>
+<h3>Practice Exam: Version 2</h3>
+<ol>
+<h3>Part 1</h3>
+<li>
+
+This Perl code is executed:
+<p>
+</p><pre>while (&lt;&gt;) {
+    chomp;
+    @a = split;
+    $h{$a[0]} .= $a[1];
+}
+print "$h{a}\n";
+</pre>
+<p></p><p>
+with these 6 lines of input:
+</p><p>
+</p><pre>a 6
+b 5
+c 4
+a 3
+b 2
+c 1
+</pre>
+<p></p><p>
+The Perl executes without errors or warnings. What output does it produce?
+</p><p>
+Note: there are 6 lines of input.  There are no blank lines and no leading or trailing white space.
+</p><p>
+</p><div class="answer">
+<pre>63
+</pre>
+</div>
+<p></p></li>
+<h3>Part 2</h3>
+<li>
+
+We have student enrolment data in this familiar format:
+<p>
+</p><pre>COMP1011|3360379|Costner, Kevin                   |3978/1|M
+COMP1011|3364562|Carey, Mary                      |3711/1|M
+COMP3311|3383025|Thorpe, Ian                      |3978/3|M
+COMP2920|3860448|Steenburgen, Mary                |3978/3|F
+COMP1021|3360582|Neeson, Liam                     |3711/1|M
+COMP3411|3860538|Klum, Heidi                      |3978/3|F
+COMP3141|3383025|Thorpe, Ian                      |3978/3|M
+COMP3891|3860544|Klum, Heidi                      |3978/3|F
+....
+</pre>
+<p></p><p>
+Write a shell pipeline that given input in this format
+outputs the student number of all students enrolled in only one course.
+</p><p>
+The student numbers should be printed one per line and each student's  number
+should be printed once.  The student numbers should be printed in sorted order.
+</p><p>
+For example, given the above input your
+pipeline should output this:
+</p><p>
+</p><pre>3360379
+3360582
+3364562
+3860448
+3860538
+3860544
+</pre>
+<p></p><p>
+Your answer must be a shell pipeline. You may not use <b>while</b>, <b>for</b> or other loops.
+You may not use perl or python.  You may use the usual Unix filters.
+</p><p>
+</p><div class="answer">
+<pre>cut -d\| -f2|sort|uniq -c|grep '^ *1 '|sed 's/.* //'
+</pre>
+<p>
+or
+</p><p>
+</p><pre>cut -d\| -f2|sort|uniq -u
+</pre>
+<p></p></div>
+<p></p></li>
+<h3>Part 3</h3>
+<li>
+
+Write a program which takes 0 or more arguments and prints the argumnent that occurs
+most frequently.
+<p>
+If several arguments  occur equally frequently. It should
+print the first occuring of these.
+</p><p>
+Make your program behave <b>exactly</b> as indicated by the examples
+below.
+</p><p>
+It must produce <b>exactly</b> the same output as below.
+</p><p>
+For example, if you program is named <code>a.out</code> here is how it should behave :
+</p><p>
+</p><pre>% a.out
+% a.out bird
+bird
+% a.out bird cow fish
+bird
+% a.out echo echo echo
+echo
+% a.out hello echo echo echo hello
+echo
+% a.out bird cow fish bird cow fish
+bird
+% a.out 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5
+5
+% a.out a a a a b a
+a
+% a.out a b c d c b a
+a
+% a.out d c b d c a a d
+d
+</pre>
+<div class="answer">
+<div class="program_description">
+Sample Perl solution
+</div>
+<pre class="program">#!/usr/bin/perl -w
+my $max_arg_repetition = 0;
+foreach $arg (@ARGV) {
+    $arg_count{$arg}++;
+    if ($arg_count{$arg} &gt; $max_arg_repetition) {
+            $max_arg_repetition = $arg_count{$arg};
+    }
+}
+foreach $arg (@ARGV) {
+    if ($arg_count{$arg} == $max_arg_repetition) {
+        print "$arg\n";
+        last;
+    }
+}</pre>
+</div>
+<p></p></li><li>
+
+Write a program that reads lines containing times in 24-hour format and converts
+the time to 12-hour (am/pm) form.
+<p>
+You can assume input lines contain a single time in the format produced by the standard Unix command <code>date</code>.
+</p><p>
+Consider the examples given below carefully.  They should clarify the format and the conversion required.
+</p><p>
+You should match behaviour in the examples below exactly.
+</p><p>
+You do not have to handle any other input format.
+</p><p>
+</p><center>
+<table>
+<tbody><tr><th>Sample Input Data</th><th>Corresponding Output
+</th></tr><tr><td>
+<pre>Thu Jan  1 00:00:00 UTC 1970
+Tue Dec 31 00:19:21 PDT 2011
+Sun Apr  9 07:30:24 CHAST 2015
+Fri Jun 12 11:19:21 EST 2009
+Wed Aug 12 12:00:00 BST 2000
+Mon Oct 29 12:49:07 EDT 2009
+Sat Nov 30 14:30:24 MST 1999
+Sat Sep 30 17:30:24 PDT 2007
+Mon Feb 15 23:19:11 WST 2002
+Mon Jun 15 23:59:59 MSD 2009
+</pre>
+</td>
+<td>
+<pre>Thu Jan  1 12:00:00am UTC 1970
+Tue Dec 31 12:19:21am PDT 2011
+Sun Apr  9 07:30:24am CHAST 2015
+Fri Jun 12 11:19:21am EST 2009
+Wed Aug 12 12:00:00pm BST 2000
+Mon Oct 29 12:49:07pm EDT 2009
+Sat Nov 30 02:30:24pm MST 1999
+Sat Sep 30 05:30:24pm PDT 2007
+Mon Feb 15 11:19:11pm WST 2002
+Mon Jun 15 11:59:59pm MSD 2009
+</pre>
+</td>
+</tr></tbody></table>
+</center>
+<p></p><p>
+</p><div class="answer">
+<div class="program_description">
+Sample Perl solution
+</div>
+<pre class="program">#!/usr/bin/perl -w
+
+while (&lt;&gt;) {
+    /\s(\d\d):/ or next;
+    my $hour = $1;
+    $hour1 = sprintf "%02d", $hour - 12;
+    s/$hour:/$hour1:/ if $hour &gt; 12;
+    s/00:/12:/ if $hour == 0;
+    my $suffix = 'am';
+    $suffix = 'pm' if $hour &gt; 11;
+    s/:(\d\d) /:$1$suffix /;
+    print;
+}
+</pre>
+</div>
+<p></p></li><li>
+ 
+Write a program that copies its standard input to its standard output
+processing embedded commands as described below.
+<p>
+</p><ul>
+<li> Strings of the form &lt;pathname&gt; should be replaced  with the contents of the file named <i>pathname</i>.
+</li><li> Strings of the form &lt;!command&gt; should be replaced by the output of <i>command</i>.
+</li></ul>
+<p></p><p>
+Multiple embedded commands may appear on a single line.
+</p><p>
+You may assume that pathnames do not start with an '!' character.
+</p><p>
+You may assume that pathnames and commands do not contain the character '&gt;'.
+</p><p>
+</p><p>
+</p><center>
+<table>
+<tbody><tr><th>Sample Input Data</th><th>Corresponding Output
+</th></tr><tr><td><pre>Hello, &lt;!echo how&gt; are you
+I am in the &lt;/etc/timezone&gt;timezone.
+</pre>
+</td><td>
+<pre>Hello, how
+ are you
+I am in the Australia/Sydney
+timezone.
+</pre>
+</td></tr><tr><td><pre>Lines may have no embedded commands
+or several: &lt;!date&gt;&lt;!date&gt;&lt;!date&gt;
+1 empty file's contents: &lt;/dev/null&gt;
+3 empty files:
+&lt;/dev/null&gt; &lt;/dev/null&gt; &lt;/dev/null&gt;
+/bin/true prints nothing:
+&lt;!/bin/true&gt;
+Some commands print &lt;!echo -n no&gt; newlines.
+&gt;&gt;&gt; The end. &lt;&lt;&lt;&lt;
+</pre>
+</td><td>
+<pre>Lines may have no embedded commands
+or several: Thu Jun 24 17:21:18 EST 2016
+Thu Jun 24 17:21:18 EST 2016
+Thu Jun 24 17:21:18 EST 2016
+1 empty file's contents:
+3 empty files:
+/bin/true prints nothing:
+Some commands print no newlines.
+&gt;&gt;&gt; The end. &lt;&lt;&lt;&lt;
+</pre>
+</td></tr></tbody></table>
+</center>
+<div class="answer">
+Sample Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+
+while ($line = &lt;STDIN&gt;) {
+    while ($line =~ s/&lt;!([^&gt;]+)&gt;/&lt;!&gt;/g) {
+        $s = `$1`;
+        $line =~ s/&lt;!&gt;/$s/;
+    }
+    while ($line =~ s/&lt;([^&gt;]+)&gt;/&lt;&gt;/g) {
+        $s = `cat $1`;
+        $line =~ s/&lt;&gt;/$s/;
+    }
+    print $line;
+}
+</pre>
+
+Concise Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+
+while (&lt;STDIN&gt;) {
+    s/&lt;(!?)([^&gt;]+)&gt;/{$1 eq "!" ? `$2` : `cat $2`}/eg;
+    print;
+}
+</pre>
+</div>
+<p></p></li></ol>
+<hr>
+<h3>Practice Exam: Version 3</h3>
+<ol>
+<h3>Part 1</h3>
+<li>
+
+This Perl code is executed:
+<p>
+</p><pre>while (&lt;&gt;) {
+    chomp;
+    @a = split;
+    $h{$a[0]} .= $a[1];
+}
+print "$h{a}\n";
+</pre>
+<p></p><p>
+with these 6 lines of input:
+</p><p>
+</p><pre>a 6
+b 5
+c 4
+a 3
+b 2
+c 1
+</pre>
+<p></p><p>
+The Perl executes without errors or warnings. What output does it produce?
+</p><p>
+Note: there are 6 lines of input.  There are no blank lines and no leading or trailing white space.
+</p><p>
+</p><div class="answer">
+<pre>63
+</pre>
+</div>
+<p></p></li>
+<h3>Part 2</h3>
+<li>
+
+We have student enrolment data in this familiar format:
+<p>
+</p><pre>COMP1011|3360379|Costner, Kevin                   |3978/1|M
+COMP1011|3364562|Carey, Mary                      |3711/1|M
+COMP3311|3383025|Thorpe, Ian                      |3978/3|M
+COMP2920|3860448|Steenburgen, Mary                |3978/3|F
+COMP1021|3360582|Neeson, Liam                     |3711/1|M
+COMP3411|3860538|Klum, Heidi                      |3978/3|F
+COMP3141|3383025|Thorpe, Ian                      |3978/3|M
+COMP3891|3860544|Klum, Heidi                      |3978/3|F
+....
+</pre>
+<p></p><p>
+Write a shell pipeline that given input in this format
+outputs the student number of all students enrolled in only one course.
+</p><p>
+The student numbers should be printed one per line and each student's  number
+should be printed once.  The student numbers should be printed in sorted order.
+</p><p>
+For example, given the above input your
+pipeline should output this:
+</p><p>
+</p><pre>3360379
+3360582
+3364562
+3860448
+3860538
+3860544
+</pre>
+<p></p><p>
+Your answer must be a shell pipeline. You may not use <b>while</b>, <b>for</b> or other loops.
+You may not use perl or python.  You may use the usual Unix filters.
+</p><p>
+</p><div class="answer">
+<pre>cut -d\| -f2|sort|uniq -c|grep '^ *1 '|sed 's/.* //'
+</pre>
+<p>
+or
+</p><p>
+</p><pre>cut -d\| -f2|sort|uniq -u
+</pre>
+<p></p></div>
+<p></p></li>
+<h3>Part 3</h3>
+<li>
+
+Write a program that takes two command-line arguments, a string and a filename.
+<p>
+It should print all the lines in the file that contain the string.
+</p><p>
+When the lines are printed the occurrences of the string in the line should be surrounded by parentheses.
+</p><p>
+In other words, the program should behave like a very simple grep (no regexp) but add brackets.
+</p><p>
+You can assume the file exists and it is readable.
+</p><p>
+You can assume the string contains only alphanumeric characters, i.e. <code>[a-zA-Z0-9]</code>.
+</p><p>
+For example, if your program was named <code>a.out</code>, this is how it should behave:
+</p><p>
+</p><pre>% cat &gt;file
+the
+quick brown
+fox jumps over the
+lazy dog
+% a.out file e
+th(e)
+fox jumps ov(e)r th(e)
+% cat &gt;poem
+How much wood would a woodchuck chuck
+if a woodchuck could chuck wood?
+% a.out poem wood
+How much (wood) would a (wood)chuck chuck
+if a (wood)chuck could chuck (wood)?
+% a.out poem h
+How muc(h) wood would a woodc(h)uck c(h)uck
+if a woodc(h)uck could c(h)uck wood?
+% a.out poem o
+H(o)w much w(o)(o)d w(o)uld a w(o)(o)dchuck chuck
+if a w(o)(o)dchuck c(o)uld chuck w(o)(o)d?
+% a.out poem How
+(How) much wood would a woodchuck chuck
+% a.out poem how
+%
+</pre>
+<div class="answer">
+Sample Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+die "Usage: bgrep &lt;file&gt; &lt;string&gt;" if @ARGV != 2;
+open F, "&lt;$ARGV[0]" or die "Can open $ARGV[0]: $!";
+while ($line = &lt;F&gt;) {
+    $line =~ s/$ARGV[1]/($&amp;)/g;
+    print $line;
+}
+
+
+
+</pre>
+
+Terse Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+open F, "&lt;$ARGV[0]" or die;
+s/$ARGV[1]/($&amp;)/g, print while &lt;F&gt;;
+
+
+</pre>
+</div>
+<p></p></li><li>
+
+We  have enrollment data where each line has this format:
+<p>
+</p><pre>    CourseCode|StudentID|FamilyName, GivenNames|Program|Gender
+</pre>
+<p></p><p>
+We wish to convert the data to this format:
+</p><p>
+</p><pre>    CourseCode|StudentID|GivenNames FamilyName|Program|Gender
+</pre>
+<p></p><p>
+Write a program which reads data in the first format from its
+standard input and writes it in the second format to its standard output.
+The following shows an example input/output pair for this program:
+</p>
+<center>
+<table border="1" cellpadding="5">
+<tbody><tr><td><b>Sample Input Data</b></td><td><b>Corresponding Output</b></td></tr>
+<tr valign="top">
+<td>
+<pre>COMP2711|3713452|Ahmad, Warren|3645/2|M
+COMP1711|3819596|Hernando, Justin Yeong|3979/1|M
+COMP1001|3953441|Noble, Albert Ka Chuen|4075/3|F
+COMP1021|3487324|Goolam, Mohammad|3643/2|M
+COMP9901|3857456|Tinoco, Ling Ling Rachel|2665|F
+COMP9902|3407207|Rhee, Paul Myung-Won|1650|F
+COMP4001|3916726|Kota, Tsz Kin|8685/1|M
+</pre>
+</td><td>
+<pre>COMP2711|3713452|Warren Ahmad|3645/2|M
+COMP1711|3819596|Justin Yeong Hernando|3979/1|M
+COMP1001|3953441|Albert Ka Chuen Noble|4075/3|F
+COMP1021|3487324|Mohammad Goolam|3643/2|M
+COMP9901|3857456|Ling Ling Rachel Tinoco|2665|F
+COMP9902|3407207|Paul Myung-Won Rhee|1650|F
+COMP4001|3916726|Tsz Kin Kota|8685/1|M
+</pre>
+</td>
+</tr>
+</tbody></table>
+</center>
+<div class="answer">
+Sample Perl solution
+
+
+<pre class="program">#!/usr/bin/perl -w
+
+while (&lt;&gt;) {
+    chomp;
+    @f = split /\|/;
+    $f[2] =~ s/(.*), (.*\S)/$2 $1/;
+    print join("|", @f), "\n";
+}
+</pre>
+
+One Line Perl solution
+
+
+<pre class="program">#!/usr/local/bin/perl -w
+# courtesy aek@cse.unsw.EDU.AU
+# split line on '|' and reverse first name and surname in the 3rd field
+
+while (&lt;&gt;) {
+        chomp;
+
+        # separate the fields according to the '|' delimiter
+        @fields = split /\|/;
+
+        # dump line if not enough fields given
+        if ($#fields &lt; 2) { print; next; }
+
+        # process name
+        $namefield = $fields[2];
+        @nameparts = split ',', $namefield; #seperate surname and first names
+
+        # trim leading and trailing space from names
+        $nameparts[0] =~ s/^\s+//;
+        $nameparts[0] =~ s/\s+$//;
+        $nameparts[1] =~ s/^\s+//;
+        $nameparts[1] =~ s/\s+$//;
+
+        # construct new name, and put it back in the array of fields
+        $fields[2] = "$nameparts[1] $nameparts[0]";
+
+        # give output.  join fields array with the delimiter
+        print join '|', @fields;
+        print "\n";
+}
+</pre>
+</div>
+</li><li>
+
+A university has a problem with students accumulating large library fines.
+The vice-chancellor has decided to expel the student with the largest
+total library fine.  We need a program which tallies the library fines
+of students and prints the name of the student with the largest total
+library fine.
+<p>
+The input to this program will be a series of pairs of student names
+and library fines.
+</p><p>
+The output of this program  will be a single student name and a total
+library fine.
+</p><p>
+At this university, students are identified by their given names, which are
+unique and consist only of lower case alphabetic letters.
+</p><p>
+At this university, library fines are always a small positive integer
+number of dollars.
+</p><p>
+Write a program which reads a series of pairs of student names
+and library fines from its standard input.
+</p><p>
+When the end of input is reached your program should print the student
+with the largest total library fine.
+</p><p>
+Your program should place no limit on the number of students and  no limit on the number of fines.
+</p><p>
+There will be a penalty if your program places any
+fixed limit on the number of students or the number of fines.
+</p><p>
+Make your program behave <b>exactly</b> as indicated by the example
+below.  For example:
+</p><p>
+</p><pre>Enter student name: fred
+Enter library fine: 3
+Enter student name: mary
+Enter library fine: 7
+Enter student name: fred
+Enter library fine: 2
+Enter student name: john
+Enter library fine: 4
+Enter student name: mary
+Enter library fine: 1
+Enter student name: fred
+Enter library fine: 4
+Enter student name: &lt;control-d&gt;
+Expel fred whose library fines total $9
+</pre>
+<p></p><p>
+Note, the <code>&lt;control-d&gt;</code> in the example above indicates the user typing this key to indicate
+the end-of-input.  This will not actually appear on the screen.  What actually appears when the <code>&lt;control-d&gt;</code>
+key is typed varies between machines.
+</p><p>
+Your program does <b>not</b> have to print <code>"&lt;control-d&gt;"</code>.
+</p><p>
+Your program can assume that student names consist only of
+lower case alphabetic characters, i.e. no space or punctuation characters.
+</p><p>
+Your program can assume that student names are at most 32 characters long.
+</p><p>
+Your program can assume that fines are always small
+postive integers.
+</p><p>
+Your program can assume that a student's total library fine will fit in an <i>int</i>.
+</p><p>
+Your program  should place no limit on the number of students.
+</p><p>
+Your program  should place no limit on the number of fines.
+</p><p>
+Your program can assume that there is always one student with
+the largest total library fine (no ties).
+In other words one student always has a total library fine larger than any other.
+</p><p>
+Your program can assume that there is at least one student with a library fine.
+</p><p>
+Your program can assume its input is correct.
+</p><p>
+No error checking is required.
+</p><p>
+</p><p>
+</p><div class="answer">
+<div class="program_description">
+Sample Perl solution
+</div>
+<pre class="program">#!/usr/bin/perl -w
+
+while (1) {
+    print "Enter student name: ";
+    $name = &lt;STDIN&gt;;
+    last if !defined $name;
+    chomp $name;
+    print "Enter library fine: ";
+    $fine = &lt;STDIN&gt; ;
+    $total_fine{$name} += $fine;
+}
+
+$largest_fine = -1;
+$student_to_expel = "";
+foreach $student (keys %total_fine) {
+    if ($total_fine{$student} &gt; $largest_fine) {
+        $largest_fine = $total_fine{$student};
+        $student_to_expel = $student;
+    }
+}
+print "Expel $student_to_expel whose library fines total \$$largest_fine\n";
+</pre>
+</div>
+<p></p></li></ol>
+</div>
+<script src="./Week 13 Lab Class_files/2041.js.download"></script>
+<p></p></div>
+</div>
+
+
+
+<div id="extension-is-installed"></div></body></html>

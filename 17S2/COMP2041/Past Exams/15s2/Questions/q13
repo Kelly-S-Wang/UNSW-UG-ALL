@@ -1,0 +1,44 @@
+Question 13 _am - 6 Marks
+
+Marking Scheme:
+
++1 mark  for generating appropriate content-type header - no penalty for spelling mistakes
++1 mark  new-line terminating header
++1 mark  appropriate if statement to produce form if there no parameters
++1 mark  generates reasonable approximation to an appropriate form
++1 mark  retrieves parameter from query string
++1 mark  passing parameter to isprime.pl/embedded calculation
+
+maxiumum 5/6 if there is non-trivial bug
+
+No penalty if they embed the isprime calculation
+
+No penalty for bad HTML as long as browser might render the output
+
+No marks for Perl or Python answers
+
+Question 13 _am Text
+
+Write a CGI script in Shell which tests whether an integer is prime.
+
+If your script is given no parameters, it should generate a 
+suitable form to allow an integer to be submitted as
+a parameter to the script.
+
+You can assume `isprime.pl` is present in the same directory 
+as your script, and use it to do the primality testing.
+
+No error checking is necessary. You can assume that if your script is given a parameter, it is
+given a single positive integer.
+
+You can assume that your script is called using the GET method
+and the web server provides an environment variable named
+`QUERY_STRING` containing the query string.
+
+Your script is not permitted to use any external programs other
+than `isprime.pl`, `test`, `expr` and `sed`.  You are not permitted
+to use python or perl.
+
+You are permitted to use shell builtins including `echo` & `exit`.
+
+

@@ -1,0 +1,138 @@
+===== Version 1 =====
+
+=== Q1 ===
+cat numbers|sed 's/[a-z].*[a-z]//g'|sort
+The file numbers contains these 4 lines:
+
+2nd 3rd
+4th 5th 6th
+7th 8th 9th 10th
+11th
+
+cat numbers|sed 's/[a-z].*[a-z]//g'|
+2
+4
+7
+11
+
+sort
+11
+2
+4
+7
+
+=== Q2 ===
+We have student enrolment data in this familiar format:
+COMP1011|3360379|Costner, Kevin                   |3978/1|M
+COMP1011|3360582|Neeson, Liam                     |3711/1|M
+COMP2920|3860538|Spears, Brittney                 |3978/3|F
+COMP1021|3360582|Neeson, Liam                     |3711/1|M
+COMP3411|3860538|Klum, Heidi                      |3978/3|F
+COMP3141|3383025|Thorpe, Ian                      |3978/3|M
+COMP3891|3860544|Klum, Heidi                      |3978/3|F
+....
+Write a shell pipeline that given input in this format outputs the student numbers of all female students.
+
+The student numbers should be printed one per line and each student number should be printed once. Only the student numbers should be printed.
+
+For example, given the above input your pipeline should output this:
+
+3860538
+3860544
+
+Your answer must be a shell pipeline. You may not use while, for or other loops. You may not use perl or python. You may use the usual Unix filters.
+
+egrep '.*F$' enrollments.txt | cut -d'|' -f2 | uniq| sort
+
+=== Q3 ===
+Write a program which takes 0 or more arguments and prints some of those arguments.
+The first occurrence and only the first occurrence of any argument should be printed.
+
+The argument should be printed on a single line. A single space should separate each argument.
+
+Make your program behave exactly as indicated by the examples below.
+
+It must produce exactly the same output as below, except you may print an extra space at the end of the line if you wish.
+
+#!/usr/bin/perl -w
+foreach $element (@ARGV){
+    if ($words{$element}){
+
+    } else {
+		print $element." ";
+        $words{$element} = 1;
+	}
+}
+print "\n";
+
+=== Q4 ===
+Write a program that copies its standard input to standard output but maps all numbers to their nearest whole number equivalent. For example, 0.667 would be mapped to 1, 99.5 would be mapped to 100, 16.35 would be mapped to 16, and so on. All other text in the input should be transferred to the output unchanged.
+A number is defined as a string containing some digit characters optionally with a decimal point ('.') followed by one or more digit characters. You can assume numbers to do not have extra leading zeros.
+
+For example 0, 100, 3.14159, 1000.0, 0.999 and 12345.6789 are all valid numbers.
+
+For example 007, 1.2.3.4, 3., are not valid numbers.
+
+MY SOLUTION:
+#!/usr/bin/perl -w
+while ($line = <STDIN>){
+    @words = split(/ /,$line);
+    foreach $word (@words){
+        # if it is [0-9]\.[0-4] e.g. 3.0
+        if ($word =~ /(.*[0-9]+)\.[0-4][0-9]*([^0-9]*)(\n)/){
+            $word = $1.$2." ".$3;
+        # if it is [0-9]\.[5-9] e.g. 3.7
+        }elsif ($word =~ /(.*)([0-9]+)\.[5-9][0-9]*([^0-9]*)(\n)/){
+            $word = $2;
+            $word = int($word);
+            $word += 1;
+            $word = $1.$word.$3." ".$4
+        }elsif ($word =~ /(.*)(\n)/) {
+            $word=$1." ".$2;
+        }else{
+            $word.=" ";
+        }
+        print $word;
+    }
+}
+
+
+BETTER SOLUTION:
+#!/usr/bin/perl -w
+
+while ($line = <>) {
+    my @numbers = $line =~ /(\d+\.\d+)/g;
+    foreach $number (@numbers) {
+        my $rounded_number = int($number + 0.5);
+        $line =~ s/$number/$rounded_number/;
+    }
+    print $line;
+}
+
+=== Q5 ===
+Write a program that reads lines of text from its standard input and prints them to its standard output. Except for lines which contain with a '#' character followed by a positive integer.
+Lines of the form #n (where n is an integer value), should be replaced this by the n'th line of input.
+
+This transformation only applies to lines which start with a '#' character, followed by the digits of a positive integer and then the newline character. No other characters appear on such lines.
+
+You may assume that: lines are numbered starting from 1, there are no more than 100 lines in the input, no line is more than 80 characters long, all n values are valid input line numbers, and no n values refer to other #n lines.
+
+
+MY SOLUTION:
+#!/usr/bin/perl -w
+while ($line = <>){          # COULD USE @input = <STDIN>; instead
+    push (@input, $line);
+}
+
+foreach $line (@input){
+    if ($line =~ /^#([0-9]+)/){
+        $num = int($1)-1;
+        print $input[$num];
+
+    }else{
+        print $line;
+    }
+}
+
+
+

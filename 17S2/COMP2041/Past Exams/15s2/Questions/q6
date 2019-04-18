@@ -1,0 +1,60 @@
+Question 6 _am - 2 Marks
+
+Marking Scheme:
+
+0.5 vague understanding of issues
+1/2 general understanding of 1 security hole + defence
+1.5/2 precise description of 1 security hole + defence - or some understanding of 2 issues
+2/2 precise description of 2 security holes + defence - or clear understanding of 2 issues
+
+
+Question 6 _am Text
+
+
+This code is part of a Perl CGI script:
+
+{{{
+    $username = param('username');
+    if (open F, "/usr/data/$username") {
+    	@user_details = <F>;
+    	close(F);
+    }
+}}}
+
+It contains 2 obvious security holes.
+ 
+One security hole results from a Perl feature that is convenient for programmers
+it would not occur equivalent code in a CGI script written in Python, C or shell.
+Give an example of input that exploits this security hole.
+
+__________
+__________
+__________
+__________
+__________
+ 
+Another security hole is not specific to Perl and would also occur in
+equivalent code in a CGI script written in Python, C or shell.
+
+Give an example of input that exploits this security hole.
+
+__________
+__________
+__________
+__________
+__________
+ 
+Give Perl statements which could be added to the above code to eliminate both security holes.
+
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+__________
+
+

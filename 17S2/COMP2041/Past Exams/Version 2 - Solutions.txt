@@ -1,0 +1,162 @@
+===== Version 2 =====
+
+=== Q1 ===
+This Perl code is executed:
+while (<>) {
+    chomp;
+    @a = split;
+    $h{$a[0]} .= $a[1];
+}
+print "$h{a}\n";
+with these 6 lines of input:
+
+a 6
+b 5
+c 4
+a 3
+b 2
+c 1
+The Perl executes without errors or warnings. What output does it produce?
+63
+
+because chomp removes newline and split divides it into characters.
+$h{$a[0]} .= $a[1]; appends 6 and 3 into h{a} therefore h{a}=63
+
+=== Q2 ===
+We have student enrolment data in this familiar format:
+COMP1011|3360379|Costner, Kevin                   |3978/1|M
+COMP1011|3364562|Carey, Mary                      |3711/1|M
+COMP3311|3383025|Thorpe, Ian                      |3978/3|M
+COMP2920|3860448|Steenburgen, Mary                |3978/3|F
+COMP1021|3360582|Neeson, Liam                     |3711/1|M
+COMP3411|3860538|Klum, Heidi                      |3978/3|F
+COMP3141|3383025|Thorpe, Ian                      |3978/3|M
+COMP3891|3860544|Klum, Heidi                      |3978/3|F
+....
+Write a shell pipeline that given input in this format outputs the student number of all students enrolled in only one course.
+
+The student numbers should be printed one per line and each student's number should be printed once. The student numbers should be printed in sorted order.
+
+For example, given the above input your pipeline should output this:
+
+3360379
+3360582
+3364562
+3860448
+3860538
+3860544
+Your answer must be a shell pipeline. You may not use while, for or other loops. You may not use perl or python. You may use the usual Unix filters.
+
+cut -d'|' -f2 enrollments.txt | sort | uniq -c | egrep '\s[1].*'|cut -d' ' -f8
+
+BETTER ANSWER: uniq -u only prints unique lines
+cut -d'|' -f2 enrollments.txt | sort | uniq -u
+
+=== Q3 ===
+Write a program which takes 0 or more arguments and prints the argumnent that occurs most frequently.
+If several arguments occur equally frequently. It should print the first occuring of these.
+
+Make your program behave exactly as indicated by the examples below.
+
+It must produce exactly the same output as below.
+
+For example, if you program is named a.out here is how it should behave :
+
+% a.out
+% a.out bird
+bird
+% a.out bird cow fish
+bird
+% a.out echo echo echo
+echo
+% a.out hello echo echo echo hello
+echo
+% a.out bird cow fish bird cow fish
+bird
+% a.out 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5
+5
+% a.out a a a a b a
+a
+% a.out a b c d c b a
+a
+% a.out d c b d c a a d
+d
+
+MY SOLUTION
+#!/usr/bin/perl -w
+$V = {};
+foreach $arg (@ARGV){
+    $V{$arg}++;
+
+}
+$highestcount = 0;
+foreach $arg (@ARGV){
+    if (int($highestcount)== 0){
+        $highest = $arg;
+        $highestcount = $V{$arg};
+    } elsif ($highestcount < int($V{$arg})){
+        $highest = $arg;
+        #print $highest."\n";
+    }
+}
+print $highest."\n";
+
+
+=== Q4 ===
+Write a program that reads lines containing times in 24-hour format and converts the time to 12-hour (am/pm) form.
+You can assume input lines contain a single time in the format produced by the standard Unix command date.
+
+Consider the examples given below carefully. They should clarify the format and the conversion required.
+
+You should match behaviour in the examples below exactly.
+
+You do not have to handle any other input format.
+
+
+#!/usr/bin/perl -w
+while ($line = <STDIN>){
+    # start with 00 then add 12 and put am at end
+    if ($line =~ /(.*\s)00(:\d\d:\d\d)(\s.*)/){
+        $line = $1."12".$2."am".$3;
+    # start with 12 then put pm at end
+    } elsif ($line =~ /(.*\s)(12)(:\d\d:\d\d)(.*)/){
+        $line = $1.$2.$3."pm".$4;
+    # start with 13-23 then subtract 12 and put pm at end
+    } elsif ($line =~ /(.*\s)(1[3-9]|2[0-3])(:\d\d:\d\d)(\s.*)/){
+        $num = int ($2);
+        $num = $num-12;
+        $line= $1.$num.$3."pm".$4;
+    #       print "24 hour is ".$num."\n";
+    } elsif ($line =~ /(.*\s)(0[1-9]|1[01])(:\d\d:\d\d)(\s.*)/){
+        $line = "$1".$2.$3."am"."$4";
+        #print "before: $1\n";
+        #print "num: $2\n";
+        #print "time: $3\n";
+        #print "after:$4\n";
+
+
+    }
+    print $line."\n";
+}
+
+=== Q5 ===
+Write a program that copies its standard input to its standard output processing embedded commands as described below.
+Strings of the form <pathname> should be replaced with the contents of the file named pathname.
+Strings of the form <!command> should be replaced by the output of command.
+Multiple embedded commands may appear on a single line.
+
+You may assume that pathnames do not start with an '!' character.
+
+You may assume that pathnames and commands do not contain the character '>'.
+
+MY SOLUTION (KINDA WRONG I THINK - HAVEN'T TESTED WITH THE DIRECTORIES)
+#!/usr/bin/perl -w
+while ($line = <STDIN>){
+    while ($line =~ /^(.*)<!([^>]*)>(.*)$/){
+            $line = $1.`$2`.$3;
+    }
+    while ($line =~ /^(.*)<([^>]*)>(.*)$/){
+            $line = $1.`cat $2`.$3;
+    }
+    print $line."\n";
+}

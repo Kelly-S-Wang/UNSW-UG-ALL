@@ -1,0 +1,48 @@
+Question 12 _am - 6 Marks
+
+Sample Answer
+
+#!/bin/sh
+n=$1
+i=2
+while test $i -lt $n
+do
+if test `expr $n % $i` = 0
+then
+echo "$n is composite"
+exit 0
+fi
+i=`expr $i + 1`
+done
+echo "$n is prime"
+
+Marking Scheme:
+
+5/6 single subtle minor bug in Shell
+
+4.5/6 single obvious/major bug in Shell
+
+If n of features below are present, mark =  n - 2
+so if 5 features present mark is 3/6
+
+if/while syntax 
+no $ on left hand side of assignments
+accessing $1
+arithmetic to increment $i
+arithmetic for if.while conditions
+echo statements
+
+Question 12 _am Text
+
+Translate the Perl in the previous question (isprime.pl) to Shell.
+
+Your script is not  permitted to use any external programs other
+than `test`, `expr` and `sed`.  You are not permitted
+to use Python or Perl.
+
+You are permitted to use shell builtins including `echo` & `exit`.
+
+You can assume your Shell script is given a positive integer as argument.
+
+
+

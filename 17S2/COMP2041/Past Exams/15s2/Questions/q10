@@ -1,0 +1,59 @@
+Question 10_am - 2 Marks
+
+Write a shell pipeline that given student enrollment data in the above format
+outputs the middle names of all students.  
+
+Each sequence of middle names should be printed on a separate line and  printed only once, no matter
+how many students have these middle names or how many courses they are enrolled in.
+
+Only the middle names should be printed.
+
+The middle names should be printed in sorted order.
+
+For example, given the above input your
+pipeline should output this:
+
+{{{
+Augustus
+Fredrick
+June Anne
+Nell
+}}}
+
+Your answer must be a shell pipeline. You may not use `while`, `for` or other loops.
+You may not use Perl or Python.  You may use the usual Unix filters.
+
+
+__________
+__________
+__________
+__________
+__________
+__________
+
+
+
+
+Sample Answer:
+
+cut -d\| -f3 |sed 's/.*, //;s/ *$//'|grep ' '|sed 's/[^ ]* //'|sort|uniq
+
+Marking Scheme
+
+1.0/2.0  multiple middle names not handled at all
+1.5/2.0  large number middle names not handled
+1.5/2.0  minor error (passes 2 tests)
+
+-0.5 penalty for extra blank lines on output
+
+No penalty for assuming names only alphabetic
+No penalty for assuming family name is a single word
+
+Question 10_am Tests
+
+cat /home/cs2041/15s2.work/exam_q10_am/tests/tests.txt
+0	5	cp  test0 enrollments.txt; sh ./q10.sh   	diff -iBw	-as		enrollments0.txt
+1	10	cp  test1 enrollments.txt; sh ./q10.sh  	diff -iBw	-as		enrollments1.txt
+2	10	cp  test2 enrollments.txt; sh ./q10.sh  	diff -iBw	-as		enrollments2.txt
+3	5	egrep 'perl|python|while|for' q10.sh  	diff -iBw	-as		language check
+

@@ -1,0 +1,70 @@
+Question 7 _am - 2 Marks
+
+Correct Answer:
+
+gcc -g -Wall -c index.c
+gcc -g -Wall -o build build.o index.o docs.o
+
+Marking Scheme:
+
+-1 for 1 extra build lines
+-1 wrong order
+-1 not expanding variables
+-1.5 for 2 extra build lines
+0.5 for 1 correct line
+no penalty for tiny errors in lines
+
+Answer Regexes:
+2 gcc\s*-g\s*-Wall\s*-c\s*index.c\n+\s*gcc\s*(-g)?\s*(-Wall)?\s*-o\s*build\s*build.o\s*index.o\s*docs.o
+1 gcc\s*(-g)?\s*(-Wall)?\s*-o\s*build\s*build.o\s*index.o\s*docs.o\n\s*gcc\s*-g\s*-Wall\s*-c\s*index.c
+
+Question 7 _am Text
+
+Consider the following `Makefile`
+{{{
+    CC=gcc
+    CFLAGS=-g -Wall
+    
+    build : build.o index.o docs.o 
+            $(CC) $(CFLAGS) -o build build.o index.o docs.o
+    build.o : build.c index.h docs.h
+            $(CC) $(CFLAGS) -c build.c
+    index.o : index.c index.h docs.h global.h
+            $(CC) $(CFLAGS) -c index.c
+    docs.o : docs.c docs.h
+            $(CC) $(CFLAGS) -c docs.c
+    clean :
+            rm -f *.o core
+    realclean :
+            rm -f build *.o core gmon.out mon.out 
+}}}
+
+and a listing of the directory that contains it
+
+{{{
+    -rw-r--r--    1 andrewt  andrewt       610 Apr  1 09:00 Makefile
+    -rwxr-xr-x    1 andrewt  andrewt     39560 Apr  7 11:44 build
+    -rw-r--r--    1 andrewt  andrewt      2027 Apr  3 15:22 build.c
+    -rw-r--r--    1 andrewt  andrewt     13116 Apr  7 11:43 build.o
+    -rw-r--r--    1 andrewt  andrewt      6632 Apr  1 15:50 docs.c
+    -rw-r--r--    1 andrewt  andrewt       865 Apr  1 15:45 docs.h
+    -rw-r--r--    1 andrewt  andrewt     21816 Apr  7 11:43 docs.o
+    -rw-r--r--    1 andrewt  andrewt      3526 Apr  3 15:40 dsTest.c
+    -rw-r--r--    1 andrewt  andrewt       308 Apr  7 15:25 global.h
+    -rw-r--r--    1 andrewt  andrewt      7345 Apr  4 18:35 index.c
+    -rw-r--r--    1 andrewt  andrewt       566 Apr  6 13:19 index.h
+    -rw-r--r--    1 andrewt  andrewt     22180 Apr  7 11:43 index.o
+}}}
+
+
+Give the sequence of commands that will be executed if we type
+the command `make` in this directory (note the Makefile is correct and
+the commands execute without error).
+
+__________
+__________
+__________
+__________
+__________
+__________
+

@@ -1,0 +1,58 @@
+Question 11 _am - 6 Marks
+
+Sample Answer
+
+#!/usr/bin/python
+import sys
+n = int(sys.argv[1])
+i = 2
+while i < n:
+if n % i == 0:
+print n, "is composite"
+sys.exit(0)
+i += 1
+print n, "is prime"
+
+Marking Scheme:
+
+5/6 single subtle minor bug in Python
+
+4.5/6 single obvious/major bug in Python
+
+If n of features below are present, mark =  n - 2
+so if 5 features present mark is 3/6
+
+if/while syntax 
+no $ on variable
+import sys 
+accessing sys.argv[1]
+int conversion of sys.argv
+correct print statements
+
+Question 11 _am Text
+
+This Perl code tests whether an integer is prime.  Translate it to Python.
+
+The Perl is correct and will execute without errors or warnings.
+
+A copy of this Perl should be present in your directory in a file named `isprime.pl`
+
+You can assume your Python script is given one positive integer as an argument.
+
+Your Python script is not  permitted to use any external programs.  You are not permitted
+to use Perl or Shell.
+
+{{{
+$n = $ARGV[0];
+$i = 2;
+while ($i < $n) {
+    if ($n % $i == 0) {
+        print "$n is composite\n";
+        exit 0;
+    }
+    $i++;
+}
+print "$n is prime\n";
+}}}
+
+

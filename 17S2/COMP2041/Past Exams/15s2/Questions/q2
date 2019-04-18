@@ -1,0 +1,50 @@
+Question 2 _am - 2 Marks
+
+Correct Answer:
+
+7even
+end
+
+Marking Scheme:
+
+1/2  for 1 line missing or 
+1/2  for missing -v, i.e. giveingthe output of grep '[0-9].*[0-9]' numbers
+which is
+
+42
+l33t
+1.7e8
+
+Answer Regexes:
+2 \s*7even\n\s*end\n
+1 \s*42\n\s*l33t\n\s*1.7e8\n
+
+Question 2 _am Text
+
+This shell is executed:
+
+{{{
+grep -v '[0-9].*[0-9]' numbers
+}}}
+
+The file `numbers` contains these 5 lines:
+
+{{{
+7even
+42
+l33t
+1.7e8
+end
+}}}
+
+The shell statements execute without errors or warnings. Exactly what output does it produce?
+
+Note: the file `numbers` contains only 5 lines.  It contains no blank lines and no leading or trailing white space.
+
+__________
+__________
+__________
+__________
+__________
+__________
+

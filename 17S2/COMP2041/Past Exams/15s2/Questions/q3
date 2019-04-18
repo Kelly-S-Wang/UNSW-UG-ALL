@@ -1,0 +1,44 @@
+Question 3 _am - 2 Marks
+
+Correct Answer:
+
+2
+4 
+7 
+11 
+
+Marking Scheme:
+
+1/2  for 1 line wrong
+
+Answer Regexes:
+2 \s*2\n\s*4\n\s*7\n\s*11\n?
+
+Question 3 _am Text
+
+These shell statements are executed:
+
+{{{
+cat numbers|sed 's/[a-z].*[a-z]//g'
+}}}
+
+The file `numbers` contains these 4 lines:
+
+{{{
+2nd 3rd
+4th 5th 6th
+7th 8th 9th 10th
+11th
+}}}
+
+The shell statements execute without errors or warnings. Exactly what output does it produce?
+
+Note: the file `numbers` contains only 4 lines.  It contains no blank lines and no leading or trailing white space.
+
+__________
+__________
+__________
+__________
+__________
+__________
+
