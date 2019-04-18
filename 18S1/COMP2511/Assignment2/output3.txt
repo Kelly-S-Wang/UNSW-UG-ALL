@@ -1,0 +1,10 @@
+2607 nodes expanded
+cost = 1266
+Ship Sydney to Kobe
+Ship Kobe to Yokohama
+Ship Yokohama to Singapore
+Ship Singapore to Manila
+Ship Manila to NewYork
+Ship NewYork to Sydney
+Ship Sydney to Vancouver
+Ship Vancouver to Shanghai

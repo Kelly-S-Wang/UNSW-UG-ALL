@@ -1,0 +1,11 @@
+13287 nodes expanded
+cost = 1311
+Ship Sydney to Vancouver
+Ship Vancouver to Sydney
+Ship Sydney to Singapore
+Ship Singapore to Sydney
+Ship Sydney to Manila
+Ship Manila to Sydney
+Ship Sydney to Kobe
+Ship Kobe to Sydney
+Ship Sydney to Shanghai

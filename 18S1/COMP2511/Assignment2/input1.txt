@@ -1,0 +1,75 @@
+#10 ports, 5 shipments, all start from Sydney
+# Ports
+Refuelling 6 Sydney
+Refuelling 4 Shanghai
+Refuelling 4 Singapore
+Refuelling 6 Vancouver
+Refuelling 8 Manila
+Refuelling 3 Perth
+Refuelling 10 Kobe
+Refuelling 8 Yokohama
+Refuelling 5 London
+Refuelling 9 NewYork
+
+# Travels 45 in total
+# Sydney -> other 9 ports
+Time 165 Sydney Shanghai
+Time 143 Sydney Singapore
+Time 135 Sydney Vancouver
+Time 120 Sydney Manila
+Time 143 Sydney Perth
+Time 146 Sydney Kobe
+Time 192 Sydney Yokohama
+Time 175 Sydney London
+Time 142 Sydney NewYork
+# Shanghai -> other 8 ports
+Time 198 Shanghai Singapore
+Time 145 Shanghai Vancouver
+Time 191 Shanghai Manila
+Time 195 Shanghai Perth
+Time 121 Shanghai Kobe
+Time 180 Shanghai Yokohama
+Time 161 Shanghai London
+Time 147 Shanghai NewYork
+# Singapore -> other 7 ports
+Time 187 Singapore Vancouver
+Time 153 Singapore Manila
+Time 160 Singapore Perth
+Time 180 Singapore Kobe
+Time 129 Singapore Yokohama
+Time 149 Singapore London
+Time 140 Singapore NewYork
+# Vancouver -> other 6 ports
+Time 187 Vancouver Manila
+Time 182 Vancouver Perth
+Time 175 Vancouver Kobe
+Time 179 Vancouver Yokohama
+Time 182 Vancouver London
+Time 182 Vancouver NewYork
+# Manila -> other 5 ports
+Time 147 Manila Perth
+Time 146 Manila Kobe
+Time 143 Manila Yokohama
+Time 150 Manila London
+Time 199 Manila NewYork
+# Perth -> other 4 ports
+Time 156 Perth Kobe
+Time 138 Perth Yokohama
+Time 137 Perth London
+Time 150 Perth NewYork
+# Kobe -> other 3 ports
+Time 160 Kobe Yokohama
+Time 169 Kobe London
+Time 120 Kobe NewYork
+# Yokohama -> other 2 ports
+Time 137 Yokohama London
+Time 167 Yokohama NewYork
+# London -> other 1 port
+Time 164 London NewYork
+
+# 5 shipment
+Shipment Sydney Shanghai
+Shipment Sydney Kobe
+Shipment Sydney Vancouver
+Shipment Sydney Manila
+Shipment Sydney Singapore

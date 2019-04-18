@@ -1,0 +1,12 @@
+63720 nodes expanded
+cost = 1578
+Ship Sydney to Vancouver
+Ship Vancouver to Shanghai
+Ship Shanghai to Vancouver
+Ship Vancouver to Kobe
+Ship Kobe to Manila
+Ship Manila to NewYork
+Ship NewYork to London
+Ship London to Perth
+Ship Perth to Yokohama
+Ship Yokohama to Singapore
